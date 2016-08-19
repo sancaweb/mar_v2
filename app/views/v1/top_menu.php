@@ -124,7 +124,7 @@
 									if($user_level==1 || $user_level==2 || $user_level==3){
 										?>
 										<li>
-										<a href="<?php echo $this->uri->baseUri;?>index.php/admin"><i class="fa fa-hand-o-right" ></i>&nbsp;Administration Panel</a>
+										<a href="<?php echo $this->uri->baseUri;?>index.php/adm_home"><i class="fa fa-hand-o-right" ></i>&nbsp;Administration Panel</a>
 										</li>
 										<li>
 										<a href="<?php echo $this->uri->baseUri;?>index.php/login/logout"><i class="fa fa-hand-o-right" ></i>&nbsp;Logout</a>
@@ -278,7 +278,7 @@
 								if($user_level==1 || $user_level==2 || $user_level==3){
 									?>
 									<li>
-										<a href="<?php echo $this->uri->baseUri;?>index.php/admin"><i class="fa fa-hand-o-right" ></i>&nbsp;Administration Panel</a>
+										<a href="<?php echo $this->uri->baseUri;?>index.php/adm_home"><i class="fa fa-hand-o-right" ></i>&nbsp;Administration Panel</a>
 									</li>
 									<?php
 								}else{
