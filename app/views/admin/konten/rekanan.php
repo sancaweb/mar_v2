@@ -23,6 +23,7 @@
 				$no=$no;
 				foreach($viewall_rekanan as $data){
 					$data_pengguna=$this->user->viewall_pengguna_by_user_id($data->user_id);
+					$cek_id_rekanan=$this->voucher->view_id_rekanan_by_id_rekanan($data->id_rekanan);
 					if($data_pengguna){	
 						$alamat=$data_pengguna->alamat;
 					}else{
@@ -140,6 +141,18 @@
 					  </div>
 					  <div class="modal-body">
 						<!--FORM Edit-->
+						<?php if($cek_id_rekanan){
+							?>							
+						<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<h4><i class="icon fa fa-check"></i> PERHATIAN ...!</h4>
+						<p>Jenis Rekanan tidak dapat dirubah karena sudah ada voucher yang sudah di generate untuk rekanan ini (<?php echo $data->id_rekanan;?>)</p>
+						<p>Silahkan ganti Nama Rekanan, Alamat dan Warna Rekanan saja.</p>
+						<p>Untuk Rincian Voucher, silahkan cek di <a href="<?php echo $this->uri->baseUri;?>index.php/adm_voucher">Halaman Voucher</a> dan cari voucher untuk ID Rekanan ini: <strong><?php echo $data->id_rekanan;?></strong></p>
+						</div>
+							<?php
+						}?>
+						
 						<form data-toggle="validator" enctype="multipart/form-data" role="form" method="POST" action="<?php echo $this->uri->baseUri;?>index.php/adm_rekanan/pro_edit_rekanan">
 						<div class="row" style="border-bottom:2px solid #B8B8B8; border-top:2px solid #B8B8B8; margin-bottom:10px;border-bottom-right-radius: 15em 1em; border-bottom-left-radius: 1em 3em;border-top-left-radius: 1em 3em; border-top-right-radius: 1em 3em;">
 						<input type="hidden" name="id" value="<?php echo $data->id;?>">
@@ -178,13 +191,28 @@
 							<div class="form-group">
 							  <label>Jenis:</label>
 							  
-							  <div class="input-group">
-								
-								<select name="jenis">
+							  <div class="input-group col-xs-12">
+								<?php
+									
+									if($cek_id_rekanan){
+										?>
+										<input type="hidden" name="jenis" value="<?php echo $data->jenis;?>">
+								<select class="form-control" disabled>
 								<option value="umum" <?php if($data->jenis=='umum'){echo 'selected';}?>>Umum</option>
-								<option value="rekanan" <?php if($data->jenis=='rekanan'){echo 'selected';}?>>Rekanan</option>
-								
+								<option value="rekanan" <?php if($data->jenis=='rekanan'){echo 'selected';}?>>Rekanan</option>								
 								</select>
+								<span id="helpBlock" class="help-block">Maaf jenis rekanan tidak dapat dirubah karena sudah ada voucher yang di generate.</span>
+										<?php
+									}else{
+										?>
+										
+								<select name="jenis" class="form-control">
+								<option value="umum" <?php if($data->jenis=='umum'){echo 'selected';}?>>Umum</option>
+								<option value="rekanan" <?php if($data->jenis=='rekanan'){echo 'selected';}?>>Rekanan</option>								
+								</select>
+										<?php
+									}
+								?>
 							</div>
 							  </div><!-- /.input group -->
 							</div>

@@ -13,6 +13,7 @@ class Adm_rekanan extends Resources\Controller
 		$this->pesan = new Models\Pesan;
 		$this->request=new Resources\Request;
 		$this->rekanan=new Models\Rekanan;
+		$this->voucher=new Models\Voucher;
 		$this->pembayaran=new Models\Pembayaran;
 		$this->registrasi=new Models\Registrasi;
 		$this->randomstring = new Libraries\Randomstring;
@@ -194,6 +195,12 @@ class Adm_rekanan extends Resources\Controller
 		);
 		
 		$this->rekanan->edit_rekanan($data_rekanan,$id);
+		
+		//edit pengguna
+		$data_pengguna=array(
+			'alamat'=>ucwords($alamat),
+		);
+		$this->user->edit_pengguna_by_userid($data_pengguna,$user_id);
 			
 			//pagination
 			$this->pagination = new Resources\Pagination();

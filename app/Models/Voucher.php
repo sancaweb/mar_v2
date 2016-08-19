@@ -78,6 +78,9 @@ class Voucher {
 		return $this->db->row("SELECT no_voucher FROM voucher WHERE id='".$id."'");
 	}
 	
+	public function view_id_rekanan_by_id_rekanan($id_rekanan){
+		return $this->db->row("SELECT id_rekanan FROM voucher WHERE id_rekanan='".$id_rekanan."'");
+	}
 	
 	// PENERIMA VOUCHER
 	public function viewall_penerima(){
