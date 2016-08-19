@@ -1,2 +1,0 @@
-# mar
-Aplikasi iseng aja
