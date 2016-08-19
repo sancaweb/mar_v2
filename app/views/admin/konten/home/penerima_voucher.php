@@ -64,6 +64,6 @@
   </ul>
 </div><!-- /.box-body -->
 <div class="box-footer text-center">
-  <a href="<?php echo $this->uri->baseUri;?>index.php/admin/voucher/penerima_voucher" class="btn btn-sm btn-info btn-flat"><i class="fa fa-edit"></i>&nbsp;View All Penerima Voucher</a>
+  <a href="<?php echo $this->uri->baseUri;?>index.php/adm_voucher/penerima_voucher" class="btn btn-sm btn-info btn-flat"><i class="fa fa-edit"></i>&nbsp;View All Penerima Voucher</a>
 </div><!-- /.box-footer -->
 </div><!-- /.box -->

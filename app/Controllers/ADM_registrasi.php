@@ -2,7 +2,7 @@
 namespace Controllers;
 use Resources, Models, Libraries;
 
-class ADM_registrasi extends Resources\Controller
+class Adm_registrasi extends Resources\Controller
 {
     public function __construct(){
         

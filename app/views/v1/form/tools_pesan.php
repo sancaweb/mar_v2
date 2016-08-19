@@ -140,7 +140,7 @@
 	  </div>
 	  <div class="modal-body">
 	  
-		<form class="form-inline" method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/admin/voucher/cari_penerima">
+		<form class="form-inline" method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/adm_voucher/cari_penerima">
 		  <div class="form-group">
 			<select name="berdasarkan" class="form-control" required>
 				<option value="">Cari Berdasarkan </option>
@@ -178,7 +178,7 @@
 	  <div class="modal-body">
 	  <div class="row" >
 		<div class="col-md-6">
-		<a class="btn btn-primary btn-flat" href="<?php echo $this->uri->baseUri;?>index.php/admin/excel/penerima_voucher">
+		<a class="btn btn-primary btn-flat" href="<?php echo $this->uri->baseUri;?>index.php/adm_excel/penerima_voucher">
 		<i class="fa fa-file-excel-o"></i> Export All Data To Excel
 		</a>
 		</div>
@@ -196,7 +196,7 @@
 		<div class="row">
 		<div class="col-md-12">
 		
-		<form class="form-inline" method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/admin/excel/penerima_voucher">
+		<form class="form-inline" method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/adm_excel/penerima_voucher">
 		  
 			  <div class="form-group">
 				<label class="sr-only" for="dari_tgl">Dari</label>

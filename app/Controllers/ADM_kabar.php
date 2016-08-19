@@ -2,7 +2,7 @@
 namespace Controllers;
 use Resources, Libraries, Models;
 
-class ADM_kabar extends Resources\Controller
+class Adm_kabar extends Resources\Controller
 {
     public function __construct(){
         

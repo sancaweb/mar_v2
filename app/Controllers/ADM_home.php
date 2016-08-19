@@ -2,7 +2,7 @@
 namespace Controllers;
 use Resources, Libraries, Models;
 
-class ADM_home extends Resources\Controller
+class Adm_home extends Resources\Controller
 {
     public function __construct(){
         

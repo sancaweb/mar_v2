@@ -164,7 +164,7 @@
   </ul><!-- /.users-list -->
 </div><!-- /.box-body -->
 <div class="box-footer text-center">
-  <a href="<?php echo $this->uri->baseUri;?>index.php/admin/user" class="btn btn-sm btn-info btn-flat">
+  <a href="<?php echo $this->uri->baseUri;?>index.php/adm_user" class="btn btn-sm btn-info btn-flat">
   <i class="fa fa-user" aria-hidden="true"></i>&nbsp;View All Users</a>
 </div><!-- /.box-footer -->
 </div>

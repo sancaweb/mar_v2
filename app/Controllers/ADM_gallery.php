@@ -2,7 +2,7 @@
 namespace Controllers;
 use Resources, Libraries, Models;
 
-class ADM_gallery extends Resources\Controller
+class Adm_gallery extends Resources\Controller
 {
     public function __construct(){
         

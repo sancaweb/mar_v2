@@ -43,6 +43,6 @@
   </ul>
 </div><!-- /.box-body -->
 <div class="box-footer text-center">
-  <a href="<?php echo $this->uri->baseUri;?>index.php/admin/produk" class="btn btn-sm btn-info btn-flat"><i class="fa fa-edit"></i>&nbsp;View All Products</a>
+  <a href="<?php echo $this->uri->baseUri;?>index.php/adm_produk" class="btn btn-sm btn-info btn-flat"><i class="fa fa-edit"></i>&nbsp;View All Products</a>
 </div><!-- /.box-footer -->
 </div><!-- /.box -->

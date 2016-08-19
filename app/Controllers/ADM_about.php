@@ -2,7 +2,7 @@
 namespace Controllers;
 use Resources, Libraries, Models;
 
-class ADM_about extends Resources\Controller
+class Adm_about extends Resources\Controller
 {
     public function __construct(){
         
@@ -751,7 +751,7 @@ class ADM_about extends Resources\Controller
 			$data['pageLinks'] = $this->pagination->setOption(
 			array(
 				'limit' => $limit,
-				'base' => $this->uri->baseUri.'index.php/admin/about/kantor/%#%/',
+				'base' => $this->uri->baseUri.'index.php/adm_about/kantor/%#%/',
 				'total' => $total_kantor,	
 				'current' => $page,
 				)

@@ -2,7 +2,7 @@
 namespace Controllers;
 use Resources, Libraries, Models;
 
-class ADM_excel extends Resources\Controller
+class Adm_excel extends Resources\Controller
 {
     public function __construct(){
         
