@@ -182,7 +182,7 @@
 								
 								<select name="jenis">
 								<option value="umum" <?php if($data->jenis=='umum'){echo 'selected';}?>>Umum</option>
-								<option value="rekanan" <?php if($data->jenis=='rekanan'){echo 'selected';}?>">Rekanan</option>
+								<option value="rekanan" <?php if($data->jenis=='rekanan'){echo 'selected';}?>>Rekanan</option>
 								
 								</select>
 							</div>
