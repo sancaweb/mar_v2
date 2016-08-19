@@ -1,7 +1,7 @@
 <header class="main-header">
 
         <!-- Logo -->
-        <a href="<?php echo $this->uri->baseUri;?>index.php/admin" class="logo">
+        <a href="<?php echo $this->uri->baseUri;?>index.php/adm_home" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>Bbb</b></span>
           <!-- logo for regular state and mobile devices -->
@@ -78,7 +78,7 @@
 						?>
                     </ul>
                   </li>
-                  <li class="footer"><a href="<?php echo $this->uri->baseUri;?>index.php/admin/pesan">See All Messages</a></li>
+                  <li class="footer"><a href="<?php echo $this->uri->baseUri;?>index.php/adm_pesan">See All Messages</a></li>
                 </ul>
               </li>
               <!-- Notifications: style can be found in dropdown.less -->
