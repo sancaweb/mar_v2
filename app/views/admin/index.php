@@ -15,9 +15,9 @@
 
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
+          <b>Version</b> 2.0
         </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; since 2016 until now <?php echo DATE('Y');?> <a href="http://mariumroh.com">Mariumroh.com</a>.</strong> All rights reserved.
       </footer>
 	<?php $this->output('admin/control_side');?>
 

@@ -104,14 +104,13 @@
 				  <p class="help-block">Alamat Penerima</p>
 				  </div>
 				</div>				  
-				</div>	
-		
-			
+				</div>
+				
 			<div class="col-md-6">					
 			<div class="form-group">
 			  <label>Email:</label>
 			  <div class="input-group col-xs-12" >
-			  <input type="email" name="email" class="form-control" placeholder="tes@tes.com" 
+			  <input type="email" name="email" class="form-control" 
 				<?php if(isset($data_penerima_voucher)){
 				  if($data_penerima_voucher){
 					  echo 'value="'.$data_penerima_voucher->email.'" required';
