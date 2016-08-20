@@ -211,7 +211,7 @@ class Klaim_voucher extends Resources\Controller
 						//belum login
 						$this->session->destroy();
 						$data['alert']='
-							<div class="alert alert-warning alert-dismissable">
+							<div class="alert alert-danger alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<h4><i class="icon fa fa-check"></i> Error, Anda harus login terlebih dahulu ! </h4>
 							
@@ -359,7 +359,7 @@ class Klaim_voucher extends Resources\Controller
 						$this->session->destroy();						
 						
 						$data['alert']='
-						<div class="alert alert-warning alert-dismissable">
+						<div class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 						<h4><i class="icon fa fa-check"></i> Error, Anda harus login terlebih dahulu ! </h4>
 						<ol>

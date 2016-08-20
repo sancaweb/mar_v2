@@ -69,8 +69,7 @@
 				  }				  				  
 			  }else{
 				  echo 'value=" " required';
-			  }?>
-			  >
+			  }?> />
 			  <p class="help-block">No Telpon atau Handphone</p>
 			  </div>
 			</div>				  
@@ -89,18 +88,17 @@
 				<div class="form-group">
 				  <label>Alamat</label>
 				  <div class="input-group col-xs-12" >
-				  <textarea class="form-control" name="alamat">
+				  
 				  <?php if(isset($data_penerima_voucher)){
 				  if($data_penerima_voucher){
-					  echo $data_penerima_voucher->alamat;
+					  echo '<textarea class="form-control" name="alamat" required>'.$data_penerima_voucher->alamat.'</textarea>';
 					  }else{
-						  echo 'value=" " required';
+						  echo '<textarea class="form-control" name="alamat" required></textarea>';
 					  }
 									  
 				  }else{
-					  echo 'value=" " required';
+					  echo '<textarea class="form-control" name="alamat" required></textarea>';
 				  }?>
-				  </textarea>
 				  <p class="help-block">Alamat Penerima</p>
 				  </div>
 				</div>				  

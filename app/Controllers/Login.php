@@ -393,8 +393,7 @@ class Login extends Resources\Controller
 		}else{
 			//echo "Berhasil Register ";
 			$cek_user_level='3';
-			$ambil_user_level=$this->user->ambil_user_level($cek_user_level)->level;
-			
+			$ambil_user_level=$this->user->ambil_user_level($cek_user_level)->level;			
 			
 			//simpan username
 			$data_user=array(
@@ -435,13 +434,10 @@ class Login extends Resources\Controller
 			
 			$this->session->setValue($session);
 			
-				
-				
 			$potongan=$this->voucher->potongan($no_voucher);
 			$id_rekanan=$this->voucher->id_rekanan($no_voucher);
 			$nama_rekanan=$this->rekanan->view_nama_rekanan_by_id($id_rekanan->id_rekanan);
 			$user_id_log=$this->user->ambil_userid($username)->id;
-			
 			
 			$data['alert']='
 				<div class="alert alert-success alert-dismissable">
