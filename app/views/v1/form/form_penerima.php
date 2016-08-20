@@ -122,15 +122,13 @@
 			  </div>
 			</div>				  
 			</div>
-			
+		</div>
 			<div class="row">
 			<div class="col-md-6">
-				<a type="button" class="btn btn-danger" href="<?php echo $this->uri->baseUri;?>index.php/klaim_voucher"> Cancel </a>
+			<a type="button" class="btn btn-danger" href="<?php echo $this->uri->baseUri;?>index.php/klaim_voucher"> Cancel </a>
 			<input type="submit" class="btn btn-primary" value="Submit">
 			</div>
 			</div>
-			
-		</div>
 		
 		</form>
 
