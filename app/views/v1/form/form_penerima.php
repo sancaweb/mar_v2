@@ -117,8 +117,7 @@
 				  }
 				  				  
 			  }else{
-				  echo 'value=" " required'; }?>
-			 >
+				  echo 'value=" " required'; }?> />
 			  <p class="help-block">Contoh: aku@website.com</p>
 			  </div>
 			</div>				  
