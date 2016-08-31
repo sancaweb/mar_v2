@@ -13,6 +13,7 @@ class Adm_pembayaran extends Resources\Controller
 		$this->produk = new Models\Produk;
 		$this->pesan = new Models\Pesan;
 		$this->rekanan = new Models\Rekanan;
+		$this->rekening = new Models\Rekening;
 		$this->user = new Models\User;
 		$this->image = new Libraries\Image;		
 		$this->readmore = new Libraries\Readmore;
@@ -77,8 +78,6 @@ class Adm_pembayaran extends Resources\Controller
 		$keterangan=$this->request->post('keterangan');
 		$status=$this->request->post('status');
 		
-		
-		
 		$data_pembayaran=array(
 			'keterangan'=>$keterangan,
 			'status'=>$status,
@@ -123,7 +122,6 @@ class Adm_pembayaran extends Resources\Controller
 			<a href="'.$this->uri->baseUri.'index.php/adm_pembayaran" type="button" class="btn btn-primary btn-lg btn-block">Halaman Pembayaran</a>
 			';
 		}
-		
 		
 		$data['title'] = 'Sukses konfirmasi';
 		$data['subtitle']= 'Halaman utama';

@@ -7,9 +7,6 @@
 		<a class="btn btn-danger btn-flat disabled" data-toggle="modal" data-target="#myModalSearch">
 		<i class="fa fa-search"></i> Search
 		</a>		
-		<a class="btn btn-primary btn-flat disabled" href="#">
-		<i class="fa fa-file-text"></i> View All data
-		</a>		
 		<a data-toggle="modal" data-target="#myModalInput" class="btn btn-warning btn-flat" >
 		<i class="fa fa-pencil-square-o"></i> Pesan Baru
 		</a>

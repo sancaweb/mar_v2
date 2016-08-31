@@ -82,11 +82,53 @@ class Voucher {
 		return $this->db->row("SELECT id_rekanan FROM voucher WHERE id_rekanan='".$id_rekanan."'");
 	}
 	
+	public function search_voucher($kata_kunci){
+		return $this->db->results("
+			SELECT rekanan.nama_rekanan,rekanan.jenis,rekanan.id_rekanan,
+			voucher.id,voucher.id_rekanan,voucher.no_voucher,voucher.potongan,voucher.jumlah 
+			FROM rekanan RIGHT JOIN voucher ON
+			rekanan.id_rekanan=voucher.id_rekanan WHERE 
+			rekanan.nama_rekanan LIKE '%".$kata_kunci."%' OR
+			rekanan.jenis LIKE '%".$kata_kunci."%' OR
+			rekanan.id_rekanan LIKE '%".$kata_kunci."%' OR
+			voucher.id LIKE '%".$kata_kunci."%' OR
+			voucher.id_rekanan LIKE '%".$kata_kunci."%' OR
+			voucher.no_voucher LIKE '%".$kata_kunci."%'
+		");
+	}
+	
+	public function search_voucher_id_rekanan($id_rekanan,$kata_kunci){
+		return $this->db->results("
+			SELECT rekanan.nama_rekanan,rekanan.jenis,rekanan.id_rekanan,
+			voucher.id,voucher.id_rekanan,voucher.no_voucher,voucher.potongan,voucher.jumlah 
+			FROM rekanan RIGHT JOIN voucher ON
+			rekanan.id_rekanan=voucher.id_rekanan WHERE 
+			rekanan.nama_rekanan LIKE '%".$kata_kunci."%' OR
+			rekanan.jenis LIKE '%".$kata_kunci."%' OR
+			rekanan.id_rekanan ='".$id_rekanan."' OR
+			voucher.id LIKE '%".$kata_kunci."%' OR
+			voucher.id_rekanan = '".$id_rekanan."' OR
+			voucher.no_voucher LIKE '%".$kata_kunci."%'
+		");
+	}	
+	
+	public function view_voucher_by_date($dari_tgl,$ke_tgl){
+		return $this->db->results("SELECT * FROM voucher WHERE tgl_cetak BETWEEN '".$dari_tgl."' AND '".$ke_tgl."' ORDER BY id DESC");
+	}
+	
+	public function view_voucher_by_date_id_rekanan($dari_tgl,$ke_tgl,$id_rekanan){
+		return $this->db->results("SELECT * FROM voucher WHERE id_rekanan='".$id_rekanan."' AND tgl_cetak BETWEEN '".$dari_tgl."' AND '".$ke_tgl."' ORDER BY id DESC");
+	}
+	
+	public function view_voucher_by_id_rekanan_nopage($id_rekanan){
+		return $this->db->results("SELECT * FROM voucher WHERE id_rekanan='".$id_rekanan."' ORDER BY tgl_cetak ASC");
+	}
+	
+	
 	// PENERIMA VOUCHER
 	public function viewall_penerima(){
 		return $this->db->results("SELECT * FROM penerima_voucher ORDER BY id DESC");
 	}
-	
 	
 	public function penerima_voucher_by_user_id_log($user_id_log){
 		return $this->db->row("SELECT * FROM penerima_voucher WHERE user_id='".$user_id_log."' AND status='0'");
@@ -210,7 +252,7 @@ class Voucher {
 	}
 	
 	public function view_penerima_by_nama_id_rekanan($berdasarkan,$kata_kunci,$id_rekanan){
-		return $this->db->results("SELECT penerima_voucher.*, rekanan.nama_rekanan FROM penerima_voucher,rekanan WHERE penerima_voucher.id_rekanan=rekanan.id_rekanan AND $berdasarkan LIKE '%$kata_kunci%' penerima_voucher.id_rekanan='".$id_rekanan."' ORDER BY id DESC");
+		return $this->db->results("SELECT penerima_voucher.*, rekanan.nama_rekanan FROM penerima_voucher,rekanan WHERE penerima_voucher.id_rekanan=rekanan.id_rekanan AND $berdasarkan LIKE '%$kata_kunci%' AND penerima_voucher.id_rekanan='".$id_rekanan."' ORDER BY id DESC");
 	}
 	
 	public function hitung_penerima_by_nama_id_rekanan($berdasarkan,$kata_kunci,$id_rekanan){

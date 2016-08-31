@@ -10,24 +10,10 @@ class Pengaturan {
         $this->db = new Resources\Database();		
     }    
 	
-	public function input_rekening($data_rekening){
-        return $this->db->insert('rekening',$data_rekening);
-    }
 	public function hitung_jamaah(){
 		return $this->db->getVar("SELECT count(id) FROM jamaah");
 	}
-	public function viewall_rekening(){
-		return $this->db->results("SELECT * FROM rekening ORDER BY id DESC");
-	}
-	
-	public function rekening_by_id($id){
-		return $this->db->row("SELECT * FROM rekening WHERE id='".$id."'");
-	}
-	
-	public function viewall_bank(){
-		return $this->db->results("SELECT * FROM bank ORDER BY nama_bank ASC");
-	}
-	
+		
 	public function nama_bank_by_id($id){
 		return $this->db->row("SELECT nama_bank FROM bank WHERE id='".$id."'");
 	}

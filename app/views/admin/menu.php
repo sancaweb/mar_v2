@@ -1,4 +1,11 @@
 <ul class="sidebar-menu">
+<?php
+	$registrasi_terbaru=$this->registrasi->hitung_register_terbaru();
+	$pembayaran_terbaru=$this->pembayaran->hitung_pembayaran_terbaru();
+	$user_terbaru=$this->user->hitung_user_terbaru();
+	
+	$total_all=$registrasi_terbaru + $pembayaran_terbaru + $user_terbaru;
+?>
             <li class="header">MAIN NAVIGATION</li>
 			<?php if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2){?>
 			<li <?php if($menu=='rekanan'){echo 'class="active"';}?>">
@@ -58,8 +65,32 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li <?php if($menu=='register'){echo 'class="active"';}?>><a href="<?php echo $this->uri->baseUri;?>index.php/adm_registrasi"><i class="fa fa-users"></i>Data Registrasi</a></li>
-                <li <?php if($menu=='pembayaran'){echo 'class="active"';}?>><a href="<?php echo $this->uri->baseUri;?>index.php/adm_pembayaran"><i class="fa fa-money"></i>Data Konfirmasi Pembayaran</a></li>
+                <li <?php if($menu=='register'){echo 'class="active"';}?>>
+				<a href="<?php echo $this->uri->baseUri;?>index.php/adm_registrasi">
+				<i class="fa fa-users"></i><span>Data Registrasi</span>
+				<?php if($registrasi_terbaru > 0){
+				?>
+					<span class="label label-primary pull-right" title="<?php echo $user_terbaru;?> Registrasi Umroh terbaru"><?php echo $registrasi_terbaru;?></span>
+					<?php
+				}else{
+					
+				}
+				?>
+				</a>
+				</li>
+                <li <?php if($menu=='pembayaran'){echo 'class="active"';}?>>
+				<a href="<?php echo $this->uri->baseUri;?>index.php/adm_pembayaran">
+				<i class="fa fa-money"></i><span>Konfirmasi Pembayaran</span>
+				<?php if($pembayaran_terbaru > 0){
+				?>
+					<span class="label label-primary pull-right" title="<?php echo $user_terbaru;?> Konfirmasi Pembayaran terbaru"><?php echo $pembayaran_terbaru;?></span>
+					<?php
+				}else{
+					
+				}
+				?>
+				</a>
+				</li>
               </ul>
             </li>
 			<?php 
@@ -67,8 +98,17 @@
 			?>
 			<li <?php if($menu=='pesan'){echo 'class="active"';}?>>
 			<a href="<?php echo $this->uri->baseUri;?>index.php/adm_pesan"><i class="fa fa-envelope-o"></i>
-			<span>Pesan</span>				
-                <span class="label label-primary pull-right"><?php echo $total_pesan_belum_terbaca;?></span>
+			<span>Pesan</span>
+			<?php if($total_pesan_belum_terbaca > 0){
+				?>
+					<span class="label label-primary pull-right"><?php echo $total_pesan_belum_terbaca;?></span>
+				<?php
+			}else{
+				
+			}
+			?>
+			
+                
 			</a>
 			
 			</li>
@@ -88,7 +128,7 @@
 					
 			
 			<li class="header">Pengaturan Website</li>
-			<li class="treeview <?php if($menu=='about' || $menu=='kantor'){echo 'active';}?>" >
+			<li class="treeview <?php if($menu=='about' || $menu=='kantor' || $menu=='rekening'){echo 'active';}?>" >
               <a href="#">
                 <i class="fa fa-university"></i> <span>Info Perusahaan</span>
                 <i class="fa fa-angle-left pull-right"></i>
@@ -96,6 +136,7 @@
               <ul class="treeview-menu">
                 <li <?php if($menu=='kantor'){echo 'class="active"';}?>><a href="<?php echo $this->uri->baseUri;?>index.php/adm_about/kantor"><i class="fa fa-university"></i>Data Kantor</a></li>
                 <li <?php if($menu=='about'){echo 'class="active"';}?>><a href="<?php echo $this->uri->baseUri;?>index.php/adm_about"><i class="fa fa-car"></i>Profile</a></li>
+                <li <?php if($menu=='rekening'){echo 'class="active"';}?>><a href="<?php echo $this->uri->baseUri;?>index.php/adm_rekening"><i class="fa fa-car"></i>Rekening Bank</a></li>
               </ul>
             </li>
 			<li class="treeview <?php if($menu=='slide' || $menu=='header'){echo 'active';}?>" >
@@ -118,7 +159,19 @@
 			<?php 
 				}
 			?>
-			<li <?php if($menu=='user'){echo 'class="active"';}?>><a href="<?php echo $this->uri->baseUri;?>index.php/adm_user"><i class="fa fa-user"></i><span>Data User</span></a></li>
+			<li <?php if($menu=='user'){echo 'class="active"';}?>>
+			<a href="<?php echo $this->uri->baseUri;?>index.php/adm_user">
+			<i class="fa fa-user"></i><span>Data User</span>
+			<?php if($user_terbaru > 0){
+				?>
+					<span class="label label-primary pull-right" title="<?php echo $user_terbaru;?> User terbaru"><?php echo $user_terbaru;?></span>
+					<?php
+				}else{
+					
+				}
+				?>
+			
+			</a></li>
 			
 			
             

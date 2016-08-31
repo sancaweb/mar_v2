@@ -193,6 +193,126 @@ class Adm_excel extends Resources\Controller
 		
     }
 	
+	public function voucher()
+    {
+		if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2 || $this->session->getValue('user_level')==3){
+		$objPHPExcel = new \PHPExcel();
+
+        // Set document properties
+        $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+        							 ->setLastModifiedBy("Maarten Balliauw")
+        							 ->setTitle("Office 2007 XLSX Test Document")
+        							 ->setSubject("Office 2007 XLSX Test Document")
+        							 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+        							 ->setKeywords("office 2007 openxml php")
+        							 ->setCategory("Test result file");
+
+
+        // Add some data
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A1', 'Data Voucher exported at : '.DATE("d-m-Y").'')
+                    ->setCellValue('A2', 'NO')
+                    ->setCellValue('B2', 'ID REKANAN')
+                    ->setCellValue('C2', 'JENIS REKANAN')
+                    ->setCellValue('D2', 'NO VOUCHER')
+                    ->setCellValue('E2', 'POTONGAN')
+                    ->setCellValue('F2', 'JUMLAH VOUCHER')
+                    ->setCellValue('G2', 'JUMLAH PENERIMA')
+                    ->setCellValue('H2', 'ACTIVATED')
+                    ->setCellValue('I2', 'TGL CETAK');
+
+		if($_POST){
+			$dari_tgl=$this->request->post('dari_tgl');
+			$ke_tgl=$this->request->post('ke_tgl');			
+			
+			if($this->session->getValue('user_level')==3){
+				$user_id=$this->session->getValue('user_id');
+				$id_rekanan=$this->rekanan->view_id_rekanan($user_id)->id_rekanan;
+				$data_voucher=$this->voucher->view_voucher_by_date_id_rekanan($dari_tgl,$ke_tgl,$id_rekanan);
+								
+				$namaFile=$this->randomstring->randomstring(5).'-'.$id_rekanan.'-data_voucher';
+			
+			}else{
+				$data_voucher=$this->voucher->view_voucher_by_date($dari_tgl,$ke_tgl);
+				
+				$namaFile=$this->randomstring->randomstring(5).'-Admin-data_voucher';
+			}
+		
+		}else{
+			if($this->session->getValue('user_level')==3){
+				$user_id=$this->session->getValue('user_id');
+				$id_rekanan=$this->rekanan->view_id_rekanan($user_id)->id_rekanan;
+				$data_voucher=$this->voucher->view_voucher_by_id_rekanan_nopage($id_rekanan);
+								
+				$namaFile=$this->randomstring->randomstring(5).'-all_Data-'.$id_rekanan.'-data_voucher.xlsx';
+			
+			}else{
+				$data_voucher=$this->voucher->viewall_voucher();;
+				
+				$namaFile=$this->randomstring->randomstring(5).'-all_Data-Admin-data_voucher.xlsx';
+			}
+		}
+        //Miscellaneous glyphs, UTF-8
+		
+		
+        $objPHPExcel->setActiveSheetIndex(0);
+			//(k,b) = (kolom,baris)
+			$no=1;
+			$k=0;
+			$b=3;
+			if($data_voucher){
+			foreach($data_voucher as $data){
+				$jenis_rekanan=$this->rekanan->jenis_rekanan($data->id_rekanan)->jenis;
+				$jumlah_penerima=$this->voucher->hitung_penerima_by_id_voucher($data->id);
+				$aktif_voucher=$this->voucher->aktif_voucher($data->id);
+				
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k,$b,$no);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+1,$b,$data->id_rekanan);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+2,$b,$jenis_rekanan);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+3,$b,$data->no_voucher);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+4,$b,$data->potongan);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+5,$b,$data->jumlah);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+6,$b,$jumlah_penerima);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+7,$b,$aktif_voucher);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+8,$b,$data->tgl_cetak);
+				
+				$no++;
+				$b++;
+			}
+            }else{
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow (0,2,'Data Tidak ada');
+			}     
+
+        // Rename worksheet
+        $objPHPExcel->getActiveSheet()->setTitle('Penerima Voucher');
+		
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $objPHPExcel->setActiveSheetIndex(0);
+
+
+        // Redirect output to a client’s web browser (Excel5)
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$namaFile.'"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+
+        // If you're serving to IE over SSL, then the following may be needed
+        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header ('Pragma: public'); // HTTP/1.0
+
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save('php://output');
+        exit;
+		
+		}else{
+			$this->redirect('login');
+		}
+		
+    }
+	
 	public function pesan($page='')
     {
 		
@@ -474,5 +594,124 @@ class Adm_excel extends Resources\Controller
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save('php://output');
         exit;
+    }
+	
+	
+	public function rekanan()
+    {
+		if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2 || $this->session->getValue('user_level')==3){
+		$objPHPExcel = new \PHPExcel();
+
+        // Set document properties
+        $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+        							 ->setLastModifiedBy("Maarten Balliauw")
+        							 ->setTitle("Office 2007 XLSX Test Document")
+        							 ->setSubject("Office 2007 XLSX Test Document")
+        							 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+        							 ->setKeywords("office 2007 openxml php")
+        							 ->setCategory("Test result file");
+
+
+        // Add some data
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A1', 'Data Rekanan exported at : '.DATE("d-m-Y").'')
+                    ->setCellValue('A2', 'NO')
+                    ->setCellValue('B2', 'ID REKANAN')
+                    ->setCellValue('C2', 'Nama REKANAN')
+                    ->setCellValue('D2', 'JENIS REKANAN')
+                    ->setCellValue('E2', 'Alamat')
+                    ->setCellValue('F2', 'No Telpon')
+                    ->setCellValue('G2', 'Email')
+
+		if($_POST){
+			$dari_tgl=$this->request->post('dari_tgl');
+			$ke_tgl=$this->request->post('ke_tgl');			
+			
+			if($this->session->getValue('user_level')==3){
+				$user_id=$this->session->getValue('user_id');
+				$id_rekanan=$this->rekanan->view_id_rekanan($user_id)->id_rekanan;
+				$data_voucher=$this->voucher->view_voucher_by_date_id_rekanan($dari_tgl,$ke_tgl,$id_rekanan);
+								
+				$namaFile=$this->randomstring->randomstring(5).'-'.$id_rekanan.'-data_voucher';
+			
+			}else{
+				$data_voucher=$this->voucher->view_voucher_by_date($dari_tgl,$ke_tgl);
+				
+				$namaFile=$this->randomstring->randomstring(5).'-Admin-data_voucher';
+			}
+		
+		}else{
+			if($this->session->getValue('user_level')==3){
+				$user_id=$this->session->getValue('user_id');
+				$id_rekanan=$this->rekanan->view_id_rekanan($user_id)->id_rekanan;
+				$data_voucher=$this->voucher->view_voucher_by_id_rekanan_nopage($id_rekanan);
+								
+				$namaFile=$this->randomstring->randomstring(5).'-all_Data-'.$id_rekanan.'-data_voucher.xlsx';
+			
+			}else{
+				$data_voucher=$this->voucher->viewall_voucher();;
+				
+				$namaFile=$this->randomstring->randomstring(5).'-all_Data-Admin-data_voucher.xlsx';
+			}
+		}
+        //Miscellaneous glyphs, UTF-8
+		
+		
+        $objPHPExcel->setActiveSheetIndex(0);
+			//(k,b) = (kolom,baris)
+			$no=1;
+			$k=0;
+			$b=3;
+			if($data_voucher){
+			foreach($data_voucher as $data){
+				$jenis_rekanan=$this->rekanan->jenis_rekanan($data->id_rekanan)->jenis;
+				$jumlah_penerima=$this->voucher->hitung_penerima_by_id_voucher($data->id);
+				$aktif_voucher=$this->voucher->aktif_voucher($data->id);
+				
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k,$b,$no);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+1,$b,$data->id_rekanan);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+2,$b,$jenis_rekanan);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+3,$b,$data->no_voucher);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+4,$b,$data->potongan);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+5,$b,$data->jumlah);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+6,$b,$jumlah_penerima);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+7,$b,$aktif_voucher);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+8,$b,$data->tgl_cetak);
+				
+				$no++;
+				$b++;
+			}
+            }else{
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow (0,2,'Data Tidak ada');
+			}     
+
+        // Rename worksheet
+        $objPHPExcel->getActiveSheet()->setTitle('Penerima Voucher');
+		
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $objPHPExcel->setActiveSheetIndex(0);
+
+
+        // Redirect output to a client’s web browser (Excel5)
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$namaFile.'"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+
+        // If you're serving to IE over SSL, then the following may be needed
+        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header ('Pragma: public'); // HTTP/1.0
+
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save('php://output');
+        exit;
+		
+		}else{
+			$this->redirect('login');
+		}
+		
     }
 }

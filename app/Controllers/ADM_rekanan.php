@@ -65,6 +65,8 @@ class Adm_rekanan extends Resources\Controller
         if($_POST){
 		$rekanan=$this->request->post('rekanan');
         $alamat=$this->request->post('alamat');
+        $no_tlp=$this->request->post('no_tlp');
+        $email=$this->request->post('email');
         $warna=$this->request->post('warna');
         $jenis=$this->request->post('jenis');
 		$pengulang=$this->request->post('pengulang');
@@ -98,16 +100,19 @@ class Adm_rekanan extends Resources\Controller
 					'user_id'=>$ambil_userid,
 					'warna'=>$warna[$i],
 					'jenis'=>$jenis[$i],
-					'id_rekanan'=>$total_rekanan.date("ymd"),					
+					'id_rekanan'=>$total_rekanan.date("ymd"),
+					'tgl_input'=>date("Y-m-d"),					
 				);
 				
 				$this->rekanan->input_rekanan($data_rekanan);
 				
 				//input pengguna
 					$data_pengguna=array(
-							'user_id'=>$ambil_userid,
-							'alamat'=>ucwords($alamat[$i]),
-							'tgl_input'=>date("Y-m-d"),
+						'user_id'=>$ambil_userid,
+						'alamat'=>ucwords($alamat[$i]),
+						'no_tlp'=>ucwords($no_tlp[$i]),
+						'email'=>ucwords($email[$i]),
+						'tgl_input'=>date("Y-m-d"),
 					);
 					$this->user->input_pengguna($data_pengguna);
 				

@@ -33,17 +33,23 @@
 					$id_produk=$this->registrasi->id_produk_by_id_register($data->id_register)->id_produk;
 					$nama_produk=$this->produk->view_nama_produk_by_id($id_produk)->nama_produk;
 					
-					$bank_tujuan=$this->pengaturan->rekening_by_id($data->rekening_tujuan)->nama_bank;
-					$pemilik_bank_tujuan=$this->pengaturan->rekening_by_id($data->rekening_tujuan)->nama_pemilik;
-					$norek_tujuan=$this->pengaturan->rekening_by_id($data->rekening_tujuan)->norek;
-					$rekening_tujuan=$bank_tujuan.', '.$pemilik_bank_tujuan.', '.$norek_tujuan;
+					$data_rekening=$this->rekening->rekening_by_id($data->rekening_tujuan);
+					if($data_rekening){
+						$bank_tujuan=$data_rekening->nama_bank;
+						$pemilik_bank_tujuan=$data_rekening->nama_pemilik;
+						$norek_tujuan=$data_rekening->norek;
+						$rekening_tujuan=$bank_tujuan.', '.$pemilik_bank_tujuan.', '.$norek_tujuan;
+					}else{
+						$rekening_tujuan='Rekening Tujuan tidak ada';
+					}
+					
 					
 					$potongan=$this->registrasi->potongan_by_id_register($data->id_register)->potongan;					
 					$harga=$this->registrasi->harga_produk_by_id_register($data->id_register)->harga_produk;					
 					$biaya=$this->registrasi->biaya_by_id_register($data->id_register)->biaya;
 					$pembayaran=$this->registrasi->pembayaran_by_id_register($data->id_register)->pembayaran;
 					$nama_jamaah=$this->registrasi->nama_jamaah_by_id_register($data->id_register)->nama_jamaah;
-					$bank_pengirim=$this->pengaturan->nama_bank_by_id($data->bank_pengirim)->nama_bank;
+					
 					
 			?>
 				
@@ -51,7 +57,7 @@
 				<td> <?php echo $no;?> </td>
 				<td> <?php echo $data->id_register;?> </td>
 				<td> <?php echo $rekening_tujuan;?> </td>
-				<td><?php echo $bank_pengirim; ?></td>
+				<td><?php echo $data->bank_pengirim; ?></td>
 				<td> <?php echo $data->pemilik_bank;?> </td>
 				<td><?php echo 'Rp. '.number_format($data->jml_pembayaran,0,'','.'); ?></td>
 				<td><?php echo $data->keterangan; ?></td>				
@@ -173,7 +179,7 @@
 							<div class="form-group">
 							<label>Nama Bank Pengirim:</label>
 								<div class="input-group col-xs-12" >
-									<input type="text" class="form-control" value="<?php echo $bank_pengirim;?>" readonly>
+								<input type="text" class="form-control" value="<?php echo $data->bank_pengirim;?>" readonly>
 								</div>
 							</div>				  
 						</div>

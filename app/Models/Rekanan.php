@@ -52,6 +52,10 @@ class Rekanan {
 		return $this->db->row("SELECT id_rekanan FROM rekanan WHERE user_id='".$user_id."'");
 	}
 	
+	public function view_by_date_id_rekanan($dari_tgl,$ke_tgl,$id_rekanan){
+		return $this->db->results("SELECT * FROM rekanan WHERE id_rekanan='".$id_rekanan."' AND tgl_cetak BETWEEN '".$dari_tgl."' AND '".$ke_tgl."' ORDER BY id DESC");
+	}
+	
 	
 	
 }

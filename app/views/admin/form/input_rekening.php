@@ -2,7 +2,7 @@
 	<div class="col-md-12">
 	  <div class="box">
 		<div class="box-header with-border">
-		  <h3 class="box-title">Input data rekanan</h3>
+		  <h3 class="box-title">Input Data Rekening</h3>
 		  <div class="box-tools pull-right">
 			<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 			
@@ -10,81 +10,45 @@
 		  </div>
 		</div><!-- /.box-header -->
 		<div class="box-body">
-		  <form data-toggle="validator" enctype="multipart/form-data" role="form" method="POST" action="<?php echo $this->uri->baseUri;?>index.php/adm_rekanan/pro_input_rekanan">
+		  <form data-toggle="validator" enctype="multipart/form-data" role="form" method="POST" action="<?php echo $this->uri->baseUri;?>index.php/adm_rekening/pro_input_rekening">
 		  <div id="itemRows">
 			<div class="row" style="border-bottom:2px solid #B8B8B8; border-top:2px solid #B8B8B8; margin-bottom:10px;border-bottom-right-radius: 15em 1em; border-bottom-left-radius: 1em 3em;border-top-left-radius: 1em 3em; border-top-right-radius: 1em 3em;">
 							
 			<input type="hidden" name="pengulang[]" value="0">
+			
 			<div class="col-md-6">					
 			<div class="form-group">
-			  <label>Nama rekanan:</label>
+			  <label>Nama Bank:</label>
 			  <div class="input-group col-xs-12" >
-			  <input name="rekanan[]" type="text" class="form-control" value="" required>
+			  <input name="nama_bank[]" type="text" class="form-control" value="" required>
 			  </div>
 			</div>				  
-			</div>
-			<div class="col-md-6">					
-			<div class="form-group">
-			  <label>No Telpon / HP:</label>
-			  <div class="input-group col-xs-12" >
-			  <input name="no_tlp[]" type="text" class="form-control" value="" required>
-			  </div>
-			</div>				  
-			</div>
-			<div class="col-md-6">					
-			<div class="form-group">
-			  <label>Email:</label>
-			  <div class="input-group col-xs-12" >
-			  <input name="email[]" type="text" class="form-control" value="" required>
-			  </div>
-			</div>				  
-			</div>
-			<div class="col-md-6 ">					
-			<div class="form-group">
-			  <label>Alamat:</label>
-			  <div class="input-group col-xs-12" >
-			  <textarea name="alamat[]" class="form-control" rows="3" placeholder="Alamat lengkap"> </textarea>
-			  </div><!-- /.input group -->
-			</div>					
-			</div>
-			<div class="col-md-6 ">					
-			<div class="form-group">
-			  <label>Warna rekanan (untuk keperluan report graph):</label>
-			  
-			  <div class="input-group my-colorpicker">
-			  <input type="text" name="warna[]" value="" class="form-control" required/>                      
-			  
-			  <div class="input-group-addon">
-				<i></i>
-			  </div>
-			</div>
-			  </div><!-- /.input group -->
 			</div>
 			
-			<div class="col-md-6 ">					
+			<div class="col-md-6">					
 			<div class="form-group">
-			  <label>Jenis:</label>
-			  
-			  <div class="input-group">
-			    
-				<select name="jenis[]" class="form-control" required>
-				<option value="">Pilih Jenis Rekanan</option>
-				<option value="umum">Umum</option>
-				<option value="rekanan">Rekanan</option>
-				
-				</select>
-			</div>
-			  </div><!-- /.input group -->
+			  <label>Nama Pemilik Rekening:</label>
+			  <div class="input-group col-xs-12" >
+			  <input name="nama_pemilik[]" type="text" class="form-control" value="" required>
+			  </div>
+			</div>				  
 			</div>
 			
+			<div class="col-md-6">					
+			<div class="form-group">
+			  <label>Nomer Rekening:</label>
+			  <div class="input-group col-xs-12" >
+			  <input name="norek[]" type="text" class="form-control" value="" required>
+			  </div>
+			</div>				  
+			</div>
 			
 		  </div>
 			</div> <!-- ItemRows -->
 		  
 		</div><!-- ./box-body -->
 		<div class="box-footer">
-		  <div class="row">
-			
+		  <div class="row">			
 			<div class="col-md-12 ">					
 			<div class="form-group">
 			  <div class="input-group col-xs-12" >

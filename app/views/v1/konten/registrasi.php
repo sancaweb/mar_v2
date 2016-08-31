@@ -173,6 +173,8 @@
 						<div class="row" style="border-bottom:2px solid #B8B8B8; border-top:2px solid #B8B8B8; margin-bottom:10px;border-bottom-right-radius: 15em 1em; border-bottom-left-radius: 1em 3em;border-top-left-radius: 1em 3em; border-top-right-radius: 1em 3em;">
 						<input type="hidden" name="id_produk" value="<?php echo $data->id_produk;?>">
 						<input type="hidden" name="id_register" value="<?php echo $data->id_register;?>">
+						<input type="hidden" name="user_id" value="<?php echo $this->session->getValue('user_id');?>">
+						
 							<div class="col-md-6">					
 							<div class="form-group">
 							  <label>Nama Produk:</label>
@@ -190,7 +192,7 @@
 							</div>				  
 							</div>
 							
-							<div class="col-md-6">					
+							<div class="col-md-12">
 							<div class="form-group">
 							  <label>Nama Jamaah:</label>
 							  <div class="input-group col-xs-12" >
@@ -220,16 +222,7 @@
 							<div class="form-group">
 							  <label>Nama Bank Pengirim:</label>
 							  <div class="input-group col-xs-12" >
-							  <select class="form-control " name="bank_pengirim" required>
-							  <?php if($viewall_bank){
-								  foreach ($viewall_bank as $viewall_bank){
-									  ?>
-									  <option value="<?php echo $viewall_bank->id;?>"><?php echo $viewall_bank->nama_bank;?></option>
-									  <?php
-								  }
-							  }?>
-							  </select>
-							  
+							  <input name="bank_pengirim" type="text" class="form-control" value="" required >
 							  </div><!-- /.input group -->
 							</div>					
 							</div>

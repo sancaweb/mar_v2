@@ -28,17 +28,16 @@ foreach($viewall_pembayaran_user_id as $data){
 	$biaya=$this->registrasi->biaya_by_id_register($data->id_register)->biaya;
 	$pembayaran=$this->registrasi->pembayaran_by_id_register($data->id_register)->pembayaran;
 	
-	$bank_tujuan=$this->pengaturan->rekening_by_id($data->rekening_tujuan)->nama_bank;
-	$pemilik_bank_tujuan=$this->pengaturan->rekening_by_id($data->rekening_tujuan)->nama_pemilik;
-	$norek_tujuan=$this->pengaturan->rekening_by_id($data->rekening_tujuan)->norek;
+	$bank_tujuan=$this->rekening->rekening_by_id($data->rekening_tujuan)->nama_bank;
+	$pemilik_bank_tujuan=$this->rekening->rekening_by_id($data->rekening_tujuan)->nama_pemilik;
+	$norek_tujuan=$this->rekening->rekening_by_id($data->rekening_tujuan)->norek;
 	$rekening_tujuan=$bank_tujuan.', '.$pemilik_bank_tujuan.', '.$norek_tujuan;
-	$bank_pengirim=$this->pengaturan->nama_bank_by_id($data->bank_pengirim)->nama_bank;
 	?>
 	<tr>
 	  <td><?php echo $no;?></td>
 	  <td><?php echo $data->id_register; ?></td>
 	  <td><?php echo $rekening_tujuan; ?></td>
-	  <td><?php echo $bank_pengirim; ?></td>
+	  <td><?php echo $data->bank_pengirim; ?></td>
 	  <td><?php echo $data->pemilik_bank; ?></td>
 	  <td><?php echo 'Rp. '.number_format($data->jml_pembayaran,0,'','.'); ?></td>
 	  <td><?php echo $data->keterangan; ?></td>
@@ -155,7 +154,7 @@ foreach($viewall_pembayaran_user_id as $data){
 		<div class="form-group">
 		<label>Nama Bank Pengirim:</label>
 			<div class="input-group col-xs-12" >
-				<input type="text" class="form-control" value="<?php echo $bank_pengirim;?>" readonly>
+				<input type="text" class="form-control" value="<?php echo $data->bank_pengirim;?>" readonly>
 			</div>
 		</div>				  
 	</div>
@@ -220,7 +219,7 @@ foreach($viewall_pembayaran_user_id as $data){
 }else{
 	?>
 	<tr>
-	  <td colspan="5">Data tidak ada</td>
+	  <td colspan="8">Data tidak ada</td>
 	</tr>
 	<?php
 }

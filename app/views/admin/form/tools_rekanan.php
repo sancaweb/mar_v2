@@ -1,12 +1,22 @@
 
 		<div class="row">	
 		<a class="btn btn-app btn-flat" data-toggle="modal" data-target="#myModalExcel">
-		<i class="fa fa-file-excel-o"></i> Export To Excel
+		<i class="fa fa-file-excel-o"></i> Export To Excel rekanan
 		</a>
 				
 		<a class="btn btn-app btn-flat" data-toggle="modal" data-target="#myModalSearch">
 		<i class="fa fa-search"></i> Search
 		</a>
+		<?php if($page=='cari_voucher'){
+			?>			
+			<a href="<?php echo $this->uri->baseUri;?>index.php/adm_voucher" class="btn btn-app btn-flat" >
+			<i class="fa fa-search"></i> View All Data
+			</a>
+			<?php
+		}else{
+			
+		}?>
+		
 		</div>
 
 
@@ -20,20 +30,10 @@
 	  </div>
 	  <div class="modal-body">
 	  
-		<form class="form-inline" method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/adm_voucher/cari_penerima">
-		  <div class="form-group">
-			<select name="berdasarkan" class="form-control" required>
-				<option value="">Cari Berdasarkan </option>
-				<option value="id_rekanan">ID Rekanan</option>
-				<option value="no_voucher">No Voucher</option>
-				<option value="rekanan.nama_rekanan">Nama Rekanan</option>
-				<option value="nama_penerima">Nama Penerima</option>
-				<option value="username">Username</option>
-				
-			</select>
-		  </div>
-		  <div class="form-group">
-			<input type="text" name="kata_kunci" class="form-control" placeholder="Kata Kunci" required>
+		<form method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/adm_voucher/cari_voucher">
+		 
+		  <div class="form-group col-md-12">
+			<input type="text" name="kata_kunci" class="form-control input-lg" placeholder="Kata Kunci" required>
 		  </div>
 		  
 	  <div class="modal-footer">
@@ -58,7 +58,7 @@
 	  <div class="modal-body">
 	  <div class="row" >
 		<div class="col-md-6">
-		<a class="btn btn-app btn-flat" href="<?php echo $this->uri->baseUri;?>index.php/adm_excel/penerima_voucher">
+		<a class="btn btn-app btn-flat" href="<?php echo $this->uri->baseUri;?>index.php/adm_excel/rekanan">
 		<i class="fa fa-file-excel-o"></i> Export All Data To Excel
 		</a>
 		</div>
@@ -76,7 +76,7 @@
 		<div class="row">
 		<div class="col-md-12">
 		
-		<form class="form-inline" method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/adm_excel/penerima_voucher">
+		<form class="form-inline" method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/adm_excel/rekanan">
 		  
 			  <div class="form-group">
 				<label class="sr-only" for="dari_tgl">Dari</label>
@@ -98,5 +98,6 @@
 	  </div>
 	</div>
   </div>
+</div>
 </div>
 <!-- END Modal Excel -->

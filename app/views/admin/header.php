@@ -82,7 +82,7 @@
 			<?php
 		}
 		
-		if($page=='penerima_voucher' || $page=='inbox' || $page=='sentitems'){
+		if($page=='penerima_voucher' || $page=='inbox' || $page=='sentitems' || $page=='voucher' || $page=='rekanan'){
 			?>
 			<!-- daterange picker -->
 			<link rel="stylesheet" href="<?php echo $this->uri->baseUri.ADM_STYLE;?>/plugins/daterangepicker/daterangepicker-bs3.css">

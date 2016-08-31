@@ -21,7 +21,14 @@
               <li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-envelope-o"></i>
-                  <span class="label label-success"><?php echo $total_pesan_belum_terbaca;?></span>
+				  <?php if($total_pesan_belum_terbaca > 0){
+					  ?>
+					  <span class="label label-success"><?php echo $total_pesan_belum_terbaca;?></span>
+					  <?php
+				  }else{
+					  
+				  }?>
+                  
                 </a>
                 <ul class="dropdown-menu">
                   <li class="header">Ada <?php echo $total_pesan_belum_terbaca;?> Pesan yang belum terbaca</li>
@@ -92,7 +99,15 @@
               <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
+				  <?php
+					if($total_all > 0){
+						?>
                   <span class="label label-warning"><?php echo $total_all;?></span>
+				  <?php
+					}else{
+						
+					}
+				  ?>
                 </a>
                 <ul class="dropdown-menu">
 				
@@ -102,17 +117,17 @@
 					
                     <ul class="menu">
                       <li>
-                        <a href="#">
+                        <a href="<?php echo $this->uri->baseUri;?>index.php/adm_registrasi">
                           <i class="fa fa-users text-aqua"></i> <?php echo $registrasi_terbaru;?> Registrasi Umroh Baru Minggu Ini
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <a href="<?php echo $this->uri->baseUri;?>index.php/adm_pembayaran">
                           <i class="fa fa-shopping-cart text-green"></i> <?php echo $pembayaran_terbaru;?> Konfirmasi Pembayaran Minggu Ini
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <a href="<?php echo $this->uri->baseUri;?>index.php/adm_user">
                           <i class="fa fa-user-plus text-red"></i> <?php echo $user_terbaru;?> Members baru Minggu Ini
                         </a>
                       </li>

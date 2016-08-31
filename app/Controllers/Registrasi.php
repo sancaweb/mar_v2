@@ -14,6 +14,7 @@ class Registrasi extends Resources\Controller
 		$this->kabar = new Models\Kabar;
 		$this->pesan = new Models\Pesan;
 		$this->rekanan = new Models\Rekanan;
+		$this->rekening = new Models\Rekening;
 		$this->image = new Libraries\Image;		
 		$this->readmore = new Libraries\Readmore;
 		$this->registrasi = new Models\Registrasi;
@@ -65,8 +66,7 @@ class Registrasi extends Resources\Controller
 		$data['list_partner']=$this->pengaturan->viewall_partner();
 		//end wajib
 		
-		$data['rekening_tujuan']=$this->pengaturan->viewall_rekening();
-		$data['viewall_bank']=$this->pengaturan->viewall_bank();
+		$data['rekening_tujuan']=$this->rekening->viewall_rekening();
 
         $this->output(TEMPLATE.'index', $data);
 		}else{

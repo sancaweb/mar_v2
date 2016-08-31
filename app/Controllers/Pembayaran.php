@@ -18,7 +18,8 @@ class Pembayaran extends Resources\Controller
 		$this->registrasi = new Models\registrasi;
 		$this->randomstring = new Libraries\Randomstring;
 		$this->pengaturan = new Models\Pengaturan;
-		$this->pembayaran = new Models\Pembayaran;		
+		$this->pembayaran = new Models\Pembayaran;
+		$this->rekening = new Models\Rekening;
 		$this->upload = new Resources\Upload; 
     }
 	
@@ -62,8 +63,7 @@ class Pembayaran extends Resources\Controller
 		$data['img_header']=$this->pengaturan->viewall_header_rand();		
 		$data['list_partner']=$this->pengaturan->viewall_partner();
 		//end wajib
-		$data['rekening_tujuan']=$this->pengaturan->viewall_rekening();
-		$data['viewall_bank']=$this->pengaturan->viewall_bank();
+		$data['rekening_tujuan']=$this->rekening->viewall_rekening();
 
         $this->output(TEMPLATE.'index', $data);
 		}else{
@@ -90,6 +90,7 @@ class Pembayaran extends Resources\Controller
 		$rekening_tujuan=$this->request->post('rekening_tujuan');
 		$bank_pengirim=$this->request->post('bank_pengirim');
 		$norek_pengirim=$this->request->post('norek_pengirim');
+		$user_id=$this->request->post('user_id');
 		$pemilik_bank=ucwords($this->request->post('pemilik_bank'));
 		$jml_pembayaran=str_replace(",","",$this->request->post('jml_pembayaran'));
 		$id_rekanan=$this->registrasi->view_id_rekanan_by_id_register($id_register)->id_rekanan;
@@ -136,7 +137,7 @@ class Pembayaran extends Resources\Controller
 								'tgl_transfer'=>$tgl_transfer,
 								'tgl_konfirm'=>$tgl_konfirm,
 								'Keterangan'=>'Pembayaran masih di proses ...',
-								'user_id'=>$this->session->getValue('user_id'),							
+								'user_id'=>$user_id,							
 								'bukti'=>$nama_foto['name'],
 							);
 							//input pembayaran

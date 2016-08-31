@@ -1,6 +1,24 @@
 <?php if(isset($alert)){
 	echo $alert;
 }?>
+<div class="row">
+	<div class="col-md-12">
+	  <div class="box">
+		<div class="box-header with-border">
+		  <h3 class="box-title">Tools</h3>
+		  <div class="box-tools pull-right">
+			<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>			
+			<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+		  </div>
+		</div><!-- /.box-header -->
+		<div class="box-body">	
+		<?php $this->output('admin/form/tools_rekanan');?>
+		
+		
+		</div>
+	</div>
+	</div>
+</div>
 <?php $this->output('admin/form/input_rekanan');?>
 
   <!-- View data -->
@@ -10,14 +28,15 @@
 		<div class="box-header with-border">
 		  <h3 class="box-title">List data rekanan</h3>
 		</div><!-- /.box-header -->
-		<div class="box-body">
+		<div class="box-body table-responsive">
 		  <table class="table table-bordered table-hover">
 			<tr>
-			  <th style="width: 10px">No</th>
-			  <th style="width: 200px">Nama Rekanan</th>
-			  <th style="width: 100px">Jenis</th>
-			  <th >Alamat</th>
-			  <th style="width: 300px">Action</th>
+			  <th>No</th>
+			  <th>ID Rekanan</th>
+			  <th>Nama Rekanan</th>
+			  <th>Jenis</th>
+			  <th>Alamat</th>
+			  <th>Action</th>
 			</tr>
 			<?php if ($viewall_rekanan){
 				$no=$no;
@@ -33,6 +52,7 @@
 					?>
 					<tr>
 			  <td><?php echo $no;?></td>
+			  <td><?php echo $data->id_rekanan; ?></td>
 			  <td><?php echo $data->nama_rekanan; ?></td>
 			  <td><?php echo ucwords($data->jenis); ?></td>
 			  <td><?php echo $alamat; ?></td>
@@ -41,35 +61,49 @@
 				</a><a class="btn btn-app" data-toggle="modal" data-target="#myModal<?php echo $data->id;?>">
 				<i class="fa fa-edit"></i> Edit
 				</a>
-				<!--
-				<a class="btn btn-app" data-toggle="modal" data-target="#myModalconfirm<?php //echo $data->id;?>">
+				
+				<a class="btn btn-app" data-toggle="modal" data-target="#myModalconfirm<?php echo $data->id;?>">
 				<i class="fa fa-trash"></i> Hapus
-				</a>-->
-				</td>
+				</a>				</td>
 			</tr>
 
-				<!-- Modal Confirm
-				<div class="modal fade" id="myModalconfirm<?php //echo $data->id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<!-- Modal Confirm -->
+				<div class="modal fade" id="myModalconfirm<?php echo $data->id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				  <div class="modal-dialog " role="document">
 					<div class="modal-content">
 					  <div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">Alert Hapus Rekanan</h4>
+						<h4 class="modal-title" id="myModalLabel">Alert Hapus Rekanan : <?php echo $data->id_rekanan;?></h4>
 					  </div>
 					  <div class="modal-body">
-					<div class="callout callout-danger">
-                    <h4>Menghapus data <?php //echo $data->nama_rekanan;?></h4>
-                    <p>Apakah anda yakin ingin menghapus data <strong><?php //echo $data->nama_rekanan;?></strong> ?</p>
-                  </div>					  
+					  <?php if($cek_id_rekanan){
+						  $clas="disabled";
+						  ?>
+						  <div class="callout callout-danger">
+							<h4>Maaf anda tidak bisa menghapus data Rekanan dengan nama: <?php echo $data->nama_rekanan;?> dan ID: <strong><?php echo $data->id_rekanan;?></strong></h4>
+							<p>Karena Rekanan tersebut memiliki voucher yang sudah di generate.?</p>
+						  </div>
+						  <?php
+					  }else{
+						  $class='';
+						  ?>
+						  <div class="callout callout-danger">
+							<h4>Anda akan menghapus data <?php echo $data->nama_rekanan;?> dengan ID: <strong><?php echo $data->id_rekanan;?></strong></h4>
+							<p>Apakah anda yakin ingin menghapus data <strong><?php echo $data->nama_rekanan;?></strong> dengan ID <strong><?php echo $data->id_rekanan;?></strong> ?</p>
+						  </div>
+						  <?php
+					  }?>
+					
+					
 					  <div class="modal-footer">					
-						<a href="<?php //echo $this->uri->baseUri;?>index.php/admin/rekanan/hapus_rekanan/<?php //echo base64_encode($data->id);?>" type="button" class="btn btn-danger">Hapus</a>	
+						<a href="<?php echo $this->uri->baseUri;?>index.php/admin/rekanan/hapus_rekanan/<?php echo base64_encode($data->id);?>" type="button" class="btn btn-danger <?php echo $class;?>">Hapus</a>	
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					  </div>
 					  </div>
 					</div>
 				  </div>
 				</div>
-				 END Modal confirm -->
+				 <!--END Modal confirm -->
 				
 				<!-- Modal View-->
 				<div class="modal fade bs-example-modal-lg" id="myModalview<?php echo $data->id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -88,7 +122,23 @@
 						<div class="form-group">
 						  <label>Nama rekanan:</label>
 						  <div class="input-group col-xs-12" >
-						  <input name="rekanan" type="text" class="form-control" value="<?php echo $data->nama_rekanan;?>" readonly>
+						  <input type="text" class="form-control" value="<?php echo $data->nama_rekanan;?>" readonly>
+						  </div>
+						</div>				  
+						</div>
+						<div class="col-md-6">					
+						<div class="form-group">
+						  <label>No Telpon / HP:</label>
+						  <div class="input-group col-xs-12" >
+						  <input type="text" class="form-control" value="" required>
+						  </div>
+						</div>				  
+						</div>
+						<div class="col-md-6">					
+						<div class="form-group">
+						  <label>Email:</label>
+						  <div class="input-group col-xs-12" >
+						  <input type="text" class="form-control" value="" required>
 						  </div>
 						</div>				  
 						</div>
@@ -96,7 +146,7 @@
 						<div class="form-group">
 						  <label>Alamat:</label>
 						  <div class="input-group col-xs-12" >
-						  <textarea name="alamat" class="form-control" rows="3" readonly><?php echo $alamat;?> </textarea>
+						  <textarea class="form-control" rows="3" readonly><?php echo $alamat;?> </textarea>
 						  </div><!-- /.input group -->
 						</div>					
 						</div>
@@ -114,7 +164,7 @@
 						  <label>Jenis</label>
 						  
 						  <div class="input-group">
-						  <input type="text" name="jenis" value="<?php echo ucwords($data->jenis);?>" class="form-control" readonly />
+						  <input type="text" value="<?php echo ucwords($data->jenis);?>" class="form-control" readonly />
 						</div>
 						  </div><!-- /.input group -->
 						</div>
@@ -164,7 +214,23 @@
 						  <input name="rekanan" type="text" class="form-control" value="<?php echo $data->nama_rekanan;?>" required>
 						  </div>
 						</div>				  
+						</div>						<div class="col-md-6">					
+						<div class="form-group">
+						  <label>No Telpon / HP:</label>
+						  <div class="input-group col-xs-12" >
+						  <input name="no_tlp" type="text" class="form-control" value="" required>
+						  </div>
+						</div>				  
 						</div>
+						<div class="col-md-6">					
+						<div class="form-group">
+						  <label>Email:</label>
+						  <div class="input-group col-xs-12" >
+						  <input name="email" type="text" class="form-control" value="" required>
+						  </div>
+						</div>				  
+						</div>
+
 						<div class="col-md-6 ">					
 						<div class="form-group">
 						  <label>Alamat:</label>

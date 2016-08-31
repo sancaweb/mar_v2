@@ -34,6 +34,10 @@
 			if($page=='rekanan'){
 			$this->output('admin/js/form_rekanan');
 		}
+		
+			if($page=='rekening'){
+				$this->output('admin/js/form_rekening');
+			}
 			if($page=='gallery'){
 			$this->output('admin/js/form_gallery');
 		}
@@ -115,7 +119,7 @@
 			<?php
 		}
 		
-		if($page=='penerima_voucher' || $page=='inbox' || $page=='sentitems'){
+		if($page=='penerima_voucher' || $page=='inbox' || $page=='sentitems' || $page=='voucher' || $page=='rekanan'){
 			?>
 			<!-- date-range-picker -->
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>

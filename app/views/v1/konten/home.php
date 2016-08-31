@@ -162,7 +162,7 @@
 								$potongan=$this->voucher->potongan_by_id($data_penerima_voucher->id_voucher)->potongan;
 								$nama_penerima=$this->user->view_nama_lengkap($data_penerima_voucher->user_id)->nama_lengkap;
 								?>
-								<input name="id_penerima" type="text" class="form-control" value="<?php echo $data_penerima_voucher->id;?>" readonly>
+								<input name="id_penerima" type="hidden" class="form-control" value="<?php echo $data_penerima_voucher->id;?>" readonly>
 													
 								<div class="col-md-6">					
 									<div class="form-group">

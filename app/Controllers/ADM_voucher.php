@@ -262,14 +262,20 @@ class Adm_voucher extends Resources\Controller
 	}
 	
 	///////////////////////////////////////////////////
-		
+	
 	public function cari_voucher(){
-		if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2){
+		if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2 || $this->session->getValue('user_level')==3){
 		
         if($_POST){
-		$no_voucher=$this->request->post('no_voucher');
-		
-		$hasil_cari=$this->voucher->cari_voucher($no_voucher);
+		$kata_kunci=$this->request->post('kata_kunci');
+				
+		if($this->session->getValue('user_level')==3){
+			$user_id=$this->session->getValue('user_id');
+			$id_rekanan=$this->rekanan->view_id_rekanan($user_id)->id_rekanan;
+			$data['viewall_voucher']=$this->voucher->search_voucher_id_rekanan($id_rekanan,$kata_kunci);
+		}else{
+			$data['viewall_voucher']=$this->voucher->search_voucher($kata_kunci);
+		}
 		
 		$data['title'] = 'Data voucher';
 		$data['subtitle']= 'List data voucher';
@@ -279,8 +285,6 @@ class Adm_voucher extends Resources\Controller
 		$data['loader_pesan']=$this->pesan->viewall_pesan_by_penerima($penerima);
 		$data['menu']='voucher';
 		$data['page']='cari_voucher';
-		$data['viewall_voucher']=$hasil_cari;
-		$data['total_voucher'] = $this->voucher->hasil_cari_voucher($no_voucher);
         $this->output('admin/index', $data);
 		}else{
 			$data['alert']='

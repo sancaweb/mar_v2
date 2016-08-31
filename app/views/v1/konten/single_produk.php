@@ -31,7 +31,7 @@
 						<?php if(isset($data_penerima_voucher)){
 								$potongan=$this->voucher->potongan_by_id($data_penerima_voucher->id_voucher)->potongan;
 								?>
-								<input name="id_penerima" type="text" class="form-control" value="<?php echo $data_penerima_voucher->id;?>" readonly>
+								<input name="id_penerima" type="hidden" class="form-control" value="<?php echo $data_penerima_voucher->id;?>" readonly>
 													
 								<div class="col-md-6">					
 									<div class="form-group">
