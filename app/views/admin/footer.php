@@ -119,7 +119,7 @@
 			<?php
 		}
 		
-		if($page=='penerima_voucher' || $page=='inbox' || $page=='sentitems' || $page=='voucher' || $page=='rekanan'){
+		if($page=='penerima_voucher' || $page=='inbox' || $page=='sentitems' || $page=='voucher'  || $page=='cari_voucher' || $page=='rekanan' || $page=='cari_rekanan' ){
 			?>
 			<!-- date-range-picker -->
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>

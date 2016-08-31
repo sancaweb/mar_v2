@@ -1,15 +1,15 @@
 
 		<div class="row">	
 		<a class="btn btn-app btn-flat" data-toggle="modal" data-target="#myModalExcel">
-		<i class="fa fa-file-excel-o"></i> Export To Excel rekanan
+		<i class="fa fa-file-excel-o"></i> Export To Excel
 		</a>
 				
 		<a class="btn btn-app btn-flat" data-toggle="modal" data-target="#myModalSearch">
 		<i class="fa fa-search"></i> Search
 		</a>
-		<?php if($page=='cari_voucher'){
+		<?php if($page=='cari_rekanan'){
 			?>			
-			<a href="<?php echo $this->uri->baseUri;?>index.php/adm_voucher" class="btn btn-app btn-flat" >
+			<a href="<?php echo $this->uri->baseUri;?>index.php/adm_rekanan" class="btn btn-app btn-flat" >
 			<i class="fa fa-search"></i> View All Data
 			</a>
 			<?php
@@ -26,11 +26,11 @@
 	<div class="modal-content">
 	  <div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title" id="myModalLabel">Pencarian data Penerima Voucher</h4>
+		<h4 class="modal-title" id="myModalLabel">Pencarian data Rekanan</h4>
 	  </div>
 	  <div class="modal-body">
 	  
-		<form method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/adm_voucher/cari_voucher">
+		<form method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/adm_rekanan/cari_rekanan">
 		 
 		  <div class="form-group col-md-12">
 			<input type="text" name="kata_kunci" class="form-control input-lg" placeholder="Kata Kunci" required>

@@ -619,9 +619,10 @@ class Adm_excel extends Resources\Controller
                     ->setCellValue('B2', 'ID REKANAN')
                     ->setCellValue('C2', 'Nama REKANAN')
                     ->setCellValue('D2', 'JENIS REKANAN')
-                    ->setCellValue('E2', 'Alamat')
-                    ->setCellValue('F2', 'No Telpon')
-                    ->setCellValue('G2', 'Email')
+                    ->setCellValue('E2', 'ALAMAT')
+                    ->setCellValue('F2', 'No TELPON')
+                    ->setCellValue('G2', 'EMAIL')
+                    ->setCellValue('H2', 'TGL INPUT');
 
 		if($_POST){
 			$dari_tgl=$this->request->post('dari_tgl');
@@ -630,28 +631,28 @@ class Adm_excel extends Resources\Controller
 			if($this->session->getValue('user_level')==3){
 				$user_id=$this->session->getValue('user_id');
 				$id_rekanan=$this->rekanan->view_id_rekanan($user_id)->id_rekanan;
-				$data_voucher=$this->voucher->view_voucher_by_date_id_rekanan($dari_tgl,$ke_tgl,$id_rekanan);
+				$data_rekanan=$this->rekanan->view_by_date_id_rekanan($dari_tgl,$ke_tgl,$id_rekanan);
 								
-				$namaFile=$this->randomstring->randomstring(5).'-'.$id_rekanan.'-data_voucher';
+				$namaFile=$this->randomstring->randomstring(5).'-'.$id_rekanan.'-data_rekanan';
 			
 			}else{
-				$data_voucher=$this->voucher->view_voucher_by_date($dari_tgl,$ke_tgl);
+				$data_rekanan=$this->rekanan->view_by_date($dari_tgl,$ke_tgl);
 				
-				$namaFile=$this->randomstring->randomstring(5).'-Admin-data_voucher';
+				$namaFile=$this->randomstring->randomstring(5).'-Admin-data_rekanan';
 			}
 		
 		}else{
 			if($this->session->getValue('user_level')==3){
 				$user_id=$this->session->getValue('user_id');
 				$id_rekanan=$this->rekanan->view_id_rekanan($user_id)->id_rekanan;
-				$data_voucher=$this->voucher->view_voucher_by_id_rekanan_nopage($id_rekanan);
+				$data_rekanan=$this->rekanan->viewall_rekanan_by_id($id_rekanan);
 								
-				$namaFile=$this->randomstring->randomstring(5).'-all_Data-'.$id_rekanan.'-data_voucher.xlsx';
+				$namaFile=$this->randomstring->randomstring(5).'-all_Data-'.$id_rekanan.'-data_rekanan.xlsx';
 			
 			}else{
-				$data_voucher=$this->voucher->viewall_voucher();;
+				$data_rekanan=$this->rekanan->viewall_rekanan();;
 				
-				$namaFile=$this->randomstring->randomstring(5).'-all_Data-Admin-data_voucher.xlsx';
+				$namaFile=$this->randomstring->randomstring(5).'-all_Data-Admin-data_rekanan.xlsx';
 			}
 		}
         //Miscellaneous glyphs, UTF-8
@@ -662,21 +663,27 @@ class Adm_excel extends Resources\Controller
 			$no=1;
 			$k=0;
 			$b=3;
-			if($data_voucher){
-			foreach($data_voucher as $data){
-				$jenis_rekanan=$this->rekanan->jenis_rekanan($data->id_rekanan)->jenis;
-				$jumlah_penerima=$this->voucher->hitung_penerima_by_id_voucher($data->id);
-				$aktif_voucher=$this->voucher->aktif_voucher($data->id);
+			if($data_rekanan){
+			foreach($data_rekanan as $data){				
+				$data_pengguna=$this->user->viewall_pengguna_by_user_id($data->user_id);
+				if($data_pengguna){	
+						$alamat=$data_pengguna->alamat;
+						$no_tlp=$data_pengguna->no_tlp;
+						$email=$data_pengguna->email;
+					}else{
+						$alamat='Alamat belum ada';
+						$no_tlp='No Telpon belum ada';
+						$email='Email belum ada';
+					}
 				
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k,$b,$no);
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+1,$b,$data->id_rekanan);
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+2,$b,$jenis_rekanan);
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+3,$b,$data->no_voucher);
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+4,$b,$data->potongan);
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+5,$b,$data->jumlah);
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+6,$b,$jumlah_penerima);
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+7,$b,$aktif_voucher);
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+8,$b,$data->tgl_cetak);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+2,$b,$data->nama_rekanan);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+3,$b,$data->jenis);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+4,$b,$alamat);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+5,$b,$no_tlp);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+6,$b,$email);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow ($k+7,$b,$data->tgl_input);
 				
 				$no++;
 				$b++;

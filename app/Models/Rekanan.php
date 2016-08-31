@@ -53,8 +53,44 @@ class Rekanan {
 	}
 	
 	public function view_by_date_id_rekanan($dari_tgl,$ke_tgl,$id_rekanan){
-		return $this->db->results("SELECT * FROM rekanan WHERE id_rekanan='".$id_rekanan."' AND tgl_cetak BETWEEN '".$dari_tgl."' AND '".$ke_tgl."' ORDER BY id DESC");
+		return $this->db->row("SELECT * FROM rekanan WHERE id_rekanan='".$id_rekanan."' AND tgl_input BETWEEN '".$dari_tgl."' AND '".$ke_tgl."' ORDER BY id DESC");
 	}
+	
+	public function view_by_date($dari_tgl,$ke_tgl){
+		return $this->db->results("SELECT * FROM rekanan WHERE tgl_input BETWEEN '".$dari_tgl."' AND '".$ke_tgl."' ORDER BY id DESC");
+	}
+	
+	
+	public function search_rekanan($kata_kunci){
+		return $this->db->results("
+			SELECT rekanan.id,rekanan.nama_rekanan,rekanan.user_id,rekanan.jenis,rekanan.warna,rekanan.id_rekanan,
+			pengguna.no_tlp,pengguna.email,pengguna.alamat,pengguna.user_id 
+			FROM rekanan LEFT JOIN pengguna ON
+			rekanan.user_id=pengguna.user_id WHERE 
+			rekanan.nama_rekanan LIKE '%".$kata_kunci."%' OR
+			rekanan.jenis LIKE '%".$kata_kunci."%' OR
+			rekanan.id_rekanan LIKE '%".$kata_kunci."%' OR
+			pengguna.no_tlp LIKE '%".$kata_kunci."%' OR
+			pengguna.email LIKE '%".$kata_kunci."%' OR
+			pengguna.alamat LIKE '%".$kata_kunci."%'
+		");
+	}
+	
+	public function search_rekanan_id_rekanan($id_rekanan,$kata_kunci){
+		return $this->db->results("
+			SELECT rekanan.id,rekanan.nama_rekanan,rekanan.user_id,rekanan.jenis,rekanan.warna,rekanan.id_rekanan,
+			pengguna.no_tlp,pengguna.email,pengguna.alamat,pengguna.user_id 
+			FROM rekanan LEFT JOIN pengguna ON
+			rekanan.user_id=pengguna.user_id WHERE 
+			rekanan.nama_rekanan LIKE '%".$kata_kunci."%' OR
+			rekanan.jenis LIKE '%".$kata_kunci."%' OR
+			rekanan.id_rekanan = '".$id_rekanan."' OR
+			pengguna.no_tlp LIKE '%".$kata_kunci."%' OR
+			pengguna.email LIKE '%".$kata_kunci."%' OR
+			pengguna.alamat LIKE '%".$kata_kunci."%'
+		");
+	}
+	
 	
 	
 	

@@ -110,8 +110,8 @@ class Adm_rekanan extends Resources\Controller
 					$data_pengguna=array(
 						'user_id'=>$ambil_userid,
 						'alamat'=>ucwords($alamat[$i]),
-						'no_tlp'=>ucwords($no_tlp[$i]),
-						'email'=>ucwords($email[$i]),
+						'no_tlp'=>$no_tlp[$i],
+						'email'=>$email[$i],
 						'tgl_input'=>date("Y-m-d"),
 					);
 					$this->user->input_pengguna($data_pengguna);
@@ -187,6 +187,8 @@ class Adm_rekanan extends Resources\Controller
         if($_POST){
 		$rekanan=$this->request->post('rekanan');
         $alamat=$this->request->post('alamat');
+        $no_tlp=$this->request->post('no_tlp');
+        $email=$this->request->post('email');
         $warna=$this->request->post('warna');
         $jenis=$this->request->post('jenis');
 		$user_id=$this->request->post('user_id');
@@ -204,6 +206,8 @@ class Adm_rekanan extends Resources\Controller
 		//edit pengguna
 		$data_pengguna=array(
 			'alamat'=>ucwords($alamat),
+			'no_tlp'=>$no_tlp,
+			'email'=>$email,
 		);
 		$this->user->edit_pengguna_by_userid($data_pengguna,$user_id);
 			
@@ -256,6 +260,53 @@ class Adm_rekanan extends Resources\Controller
 			$data['menu']='about';
 			$this->output('admin/index', $data);
 		}
+		}else{
+			$this->redirect('login');
+		}
+    }
+	
+	
+	public function cari_rekanan()
+    {
+		if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2){
+			if($_POST){
+					
+				$kata_kunci=trim($this->request->post('kata_kunci'));
+				if($this->session->getValue('user_level')==3){
+					$user_id=$this->session->getValue('user_id');
+					$id_rekanan=$this->rekanan->view_id_rekanan($user_id)->id_rekanan;
+					$data['viewall_rekanan']=$this->rekanan->search_rekanan_id_rekanan($id_rekanan,$kata_kunci);
+				}else{
+					$data['viewall_rekanan']=$this->rekanan->search_rekanan($kata_kunci);
+				}
+			
+			$data['title'] = 'Data Rekanan';
+			$data['subtitle']= 'List data Rekanan';
+			$data['konten']='admin/konten/rekanan';
+			$penerima=$this->session->getValue('user_id');
+			$data['total_pesan_belum_terbaca']=$this->pesan->hitung_pesan_status_by_penerima($penerima);
+			$data['loader_pesan']=$this->pesan->viewall_pesan_by_penerima($penerima);
+			$data['menu']='rekanan';
+			$data['page']='cari_rekanan';
+			$this->output('admin/index', $data);
+			}else{
+				$data['alert']='
+				<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<h4><i class="icon fa fa-check"></i> Error ...!</h4>
+				<p>Halaman yang anda tuju tidak ada</p>
+				</div>';
+				$data['title'] = 'Error';
+				$data['subtitle']= 'Halaman utama';
+				$data["page"]='error';
+				$data['konten']='admin/konten/error';
+				$penerima=$this->session->getValue('user_id');
+				$data['total_pesan_belum_terbaca']=$this->pesan->hitung_pesan_status_by_penerima($penerima);
+				$data['loader_pesan']=$this->pesan->viewall_pesan_by_penerima($penerima);
+				$data['menu']='about';
+				$this->output('admin/index', $data);
+			}
+		
 		}else{
 			$this->redirect('login');
 		}

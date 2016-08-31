@@ -230,8 +230,8 @@
 		  </ul>
 		</div> 
 				  <?php
-			  }
-		  }?>
+			  } //end if $page cari
+		  }// end if $page?>
 		
 		
 		 
