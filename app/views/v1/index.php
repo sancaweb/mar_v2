@@ -1,7 +1,9 @@
 <?php $this->output(TEMPLATE.'header');?>
     <body>
+	<!--
 	<img alt="Fork me on GitHub" src="//sancaweb.com/beta_version.png" style="z-index:9999; position: absolute; top: 0pt; right: 0pt; border: 0pt none;">
-        <!--[if lt IE 7]>
+        -->
+		<!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
 <?php $this->output(TEMPLATE.'top_menu');?>

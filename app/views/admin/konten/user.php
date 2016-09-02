@@ -11,11 +11,53 @@
 		  <?php
 			if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2){
 		  ?>
-		  <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModalinput">
+		  <a class="btn btn-app btn-flat" type="button" data-toggle="modal" data-target="#myModalinput">
 			<i class="fa fa-user-plus"></i> Tambah User
 			</a>
 			<?php $this->output('admin/form/input_user');?>
+			<a class="btn btn-app btn-flat" data-toggle="modal" data-target="#myModalSearch">
+		<i class="fa fa-search"></i> Search
+		</a>
+		<?php
+			if($page=='cari_user'){
+				?>				
+		<a href="<?php echo $this->uri->baseUri;?>index.php/adm_user" class="btn btn-app btn-flat" >
+			<i class="fa fa-search"></i> View All Data
+		</a>
+				<?php
+			}else{
+				
+			}
+		?>
+			<!-- Modal Search-->
+<div class="modal fade" id="myModalSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog " role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">Pencarian data Penerima Voucher</h4>
+	  </div>
+	  <div class="modal-body">
+	  
+		<form method="post" data-toggle="validator" enctype="multipart/form-data" role="form" action="<?php echo $this->uri->baseUri;?>index.php/adm_user/cari_user">
+		 
+		  <div class="form-group col-md-12">
+			<input type="text" name="kata_kunci" class="form-control input-lg" placeholder="Masukan Username" required>
+		  </div>
+		  
+	  <div class="modal-footer">
+		  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>Search</button>	  
+		<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+	  </div>
+		</form>
+	  </div>
+	</div>
+  </div>
+</div>
+<!-- END Modal Search -->
 			<?php } ?>
+			
+		 
 		</div><!-- /.box-header -->
 		<div class="box-body table-responsive">
 		  <table class="table table-bordered table-hover">
@@ -27,7 +69,12 @@
 			  <th style="width: 300px">Action</th>
 			</tr>
 			<?php if ($viewall_page){
-				$no=$no;
+				if($page=='cari_user'){
+					$no=0;
+				}else{
+					$no=$no;
+				}
+				
 				foreach($viewall_page as $data){
 					if($data->user_level=='1' || $data->username=='sanca'){
 						
@@ -315,7 +362,11 @@
 		  </table>
 		</div><!-- /.box-body -->
 		<div class="box-footer clearfix">
-		  <ul class="pagination pagination-sm no-margin pull-right">
+		<?php if($page=='cari_user'){
+			
+		}else{
+			?>
+			<ul class="pagination pagination-sm no-margin pull-right">
 			<?php if ($pageLinks): ?>
 					
 					<?php foreach ($pageLinks as $paging): ?>
@@ -325,6 +376,10 @@
 				
 						<?php endif; ?>
 		  </ul>
+			<?php
+		}?>
+		  
+		  
 		</div>
 	  </div><!-- /.box -->
 	</div>

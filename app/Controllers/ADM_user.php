@@ -479,5 +479,47 @@ class Adm_user extends Resources\Controller
 			
     }
 	
+	public function cari_user()
+    {
+		if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2 || $this->session->getValue('user_level')==3){
+        
+		if($_POST){
+			$kata_kunci=trim($this->request->post('kata_kunci'));
+			$data['viewall_page']=$this->user->cari_user($kata_kunci);
+			
+			$data['title'] = 'Data User';
+			$data['subtitle']= 'List data user';
+			$data['konten']='admin/konten/user';
+			$data['menu']='user';
+			$data['page']='cari_user';
+			$data['user_level']=$this->user->viewall_user_grup();
+			$penerima=$this->session->getValue('user_id');
+			$data['total_pesan_belum_terbaca']=$this->pesan->hitung_pesan_status_by_penerima($penerima);
+			$data['loader_pesan']=$this->pesan->viewall_pesan_by_penerima($penerima);
+			
+			$this->output('admin/index', $data);
+		}else{
+			$data['alert']='
+				<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<h4><i class="icon fa fa-check"></i> Error ...!</h4>
+				<p>Halaman yang anda tuju tidak ada</p>
+				</div>';
+			$data['title'] = 'Error';
+			$data['subtitle']= 'Halaman utama';
+			$data["page"]='error';
+			$data['konten']='admin/konten/error';
+			$penerima=$this->session->getValue('user_id');
+			$data['total_pesan_belum_terbaca']=$this->pesan->hitung_pesan_status_by_penerima($penerima);
+			$data['loader_pesan']=$this->pesan->viewall_pesan_by_penerima($penerima);
+			$data['menu']='about';
+			$this->output('admin/index', $data);
+		}
+		
+		}else{
+			$this->redirect('login');
+		}
+    }
+	
 	
 }

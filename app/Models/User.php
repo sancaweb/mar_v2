@@ -84,6 +84,10 @@ class User {
 		return $this->db->getVar("SELECT count(id) FROM user WHERE tgl_register > DATE(now()) - INTERVAL 1 WEEK");
 	}
 	
+	public function cari_user($kata_kunci){
+		return $this->db->results("SELECT * FROM user WHERE username LIKE '%".$kata_kunci."%'"); 
+	}
+	
 	//user grup
 	
 	public function viewall_level_and_ket(){
