@@ -82,4 +82,28 @@ class Home extends Resources\Controller
 
         $this->output(TEMPLATE.'index', $data);
     }
+	
+	public function tes_email(){
+		 $this->email = new Resources\Email;
+		
+		  $send = $this->email
+	    ->setOption(
+		array(
+		    'smtpHost' => 'mariumroh.com',
+		    'smtpUsername' => 'info@mariumroh.com',
+		    'smtpPassword' => 'ayokitaumroh16',
+			'smtpPort' => 587,
+		)
+	    )
+	    ->to('sanca.snake@gmail.com')
+	    ->subject('Tes Email')
+	    ->message('email messages')
+	    ->from('info@mariumroh.com', 'Mariumroh.com')
+	    ->mail();
+	    
+        if( $send )
+            echo 'success';
+        else
+            echo 'failed';
+	}
 }
