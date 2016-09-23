@@ -44,7 +44,7 @@
 								
 							<?php
 							}else{
-										$potongan='0';
+								$potongan='0';
 							}?>
 														
 						<div class="col-md-6">					
@@ -60,7 +60,7 @@
 							<div class="form-group">
 							  <label>Jenis Perjalanan:</label>
 							  <div class="input-group col-xs-12" >
-							  <input name="nama_jamaah" type="text" class="form-control" value="<?php echo $view_produk->nama_produk;?>" readonly>
+							  <input name="nama_produk" type="text" class="form-control" value="<?php echo $view_produk->nama_produk;?>" readonly>
 							  <input name="id_produk" type="hidden" class="form-control" value="<?php echo $view_produk->id;?>" readonly>
 							  </div>
 							</div>
@@ -153,10 +153,11 @@
 							<div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<h4><i class="icon fa fa-check"></i> Error Login</h4>
-							<p>Harap login terlebih dahulu sebelum melakukan pendaftaran secara online. </p>
-							<p>Silahkan klik tombol dibawah ini untuk Login.</p>
+							<p>Harap login terlebih dahulu sebelum melakukan pendaftaran umroh secara online. </p>
+							<p>Silahkan klik tombol dibawah ini untuk Login atau Registrasi jika belum memiliki akun.</p>
 							</div>
 							<a href="<?php echo $this->uri->baseUri;?>index.php/login/" type="button" class="btn btn-primary btn-lg btn-block">Login</a>
+							<a href="<?php echo $this->uri->baseUri;?>index.php/login/register" type="button" class="btn btn-primary btn-lg btn-block">Registrasi Akun</a>
 							<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						  </div>

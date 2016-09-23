@@ -18,6 +18,7 @@ class Adm_kabar extends Resources\Controller
 		$this->image = new Libraries\Image;
 		$this->pembayaran=new Models\Pembayaran;
 		$this->registrasi=new Models\Registrasi;
+		$this->rekanan=new Models\Rekanan;
     }
 	
 	public function index($page=1)

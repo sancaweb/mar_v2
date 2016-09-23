@@ -17,8 +17,8 @@ class Adm_rekening extends Resources\Controller
 		$this->pembayaran=new Models\Pembayaran;
 		$this->registrasi=new Models\Registrasi;
 		$this->randomstring = new Libraries\Randomstring;
-		$this->readmore = new Libraries\Readmore;
-		
+		$this->readmore = new Libraries\Readmore;		
+		$this->rekanan=new Models\Rekanan;
     }
 	
 	public function index($page=1)

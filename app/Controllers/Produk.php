@@ -99,7 +99,6 @@ class Produk extends Resources\Controller
 						<div class="alert alert-warning alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 						<h4><i class="icon fa fa-check"></i> Anda Tidak Memiliki voucher yang bisa digunakan</h4>
-						<p>Anda tidak memiliki voucher yang bisa digunakan.</p>
 						<p>Anda tidak memiliki pemotongan harga dalam registrasi umroh kali ini.</p>
 						</div>';
 					}

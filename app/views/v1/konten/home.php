@@ -17,7 +17,7 @@
 								<p>Harga: <?php echo 'Rp. '.number_format($data->harga,0,'','.');?></p>
 								</span>
                             <a href="#" data-toggle="modal" data-target="#myModalview<?php echo $data->id;?>" class="price-btn"> View Detail</a>
-                            <a href="#" data-toggle="modal" data-target="#myModalinput<?php echo $data->id;?>" class="price-btn"> Daftar Sekarang</a>
+                            <a href="#" data-toggle="modal" data-target="#myModalinput<?php echo $data->id;?>" class="price-btn"> Daftar Umroh Sekarang</a>
                         </div> <!-- /.list-content -->
                     </div> <!-- /.list-item -->
 						
@@ -34,12 +34,10 @@
                             <img src="<?php echo $this->image->ambil_gambar($data->keterangan);?>" alt="<?php echo $data->nama_produk;?>">
                         </div> <!-- /.list-thumb -->
                         <div class="list-content">
-                            <h5><?php echo $data->nama_produk;?></h5>
-                            <span><p>Available Seat : <?php echo $data->seat;?></p>
-								<p>Harga: <?php echo 'Rp. '.number_format($data->harga,0,'','.');?></p>
+                            <h5>Data Produk Tidak ada</h5>
+                            <span><p>Available Seat : 0</p>
+								<p>Harga: 0</p>
 								</span>
-                            <a href="#" data-toggle="modal" data-target="#myModalview<?php echo $data->id;?>" class="price-btn"> View Detail</a>
-                            <a href="#" data-toggle="modal" data-target="#myModalinput<?php echo $data->id;?>" class="price-btn"> Daftar Sekarang</a>
                         </div> <!-- /.list-content -->
                     </div> <!-- /.list-item -->
 					<?php
@@ -50,7 +48,9 @@
             </div> <!-- /.row -->
         </div> <!-- /.container -->
 		<?php if($produk){
+			$urutan=0;
 			foreach($produk as $data2){
+				$urutan++;
 				?>
 				<!-- Modal View-->
 				<div class="modal fade bs-example-modal-lg" id="myModalview<?php echo $data2->id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -191,7 +191,7 @@
 							<div class="form-group">
 							  <label>Jenis Perjalanan:</label>
 							  <div class="input-group col-xs-12" >
-							  <input name="nama_jamaah" type="text" class="form-control" value="<?php echo $data2->nama_produk;?>" readonly>
+							  <input name="nama_produk" type="text" class="form-control" value="<?php echo $data2->nama_produk;?>" readonly>
 							  <input name="id_produk" type="hidden" class="form-control" value="<?php echo $data2->id;?>" readonly>
 							  </div>
 							</div>
@@ -253,8 +253,8 @@
 						<div class="col-md-6">
 							<div class="form-group">
 							  <label>Pembayaran Awal:</label>
-							  <div class="input-group col-xs-12" id="pembayaran">
-							  <input id="pembayaran" name="pembayaran" type="text" class="form-control" value="" placeholder="Pembayaran awal yang akan di transfer (Rp.)" required>
+							  <div class="input-group col-xs-12" id="pembayaran_awal<?php echo $urutan;?>">
+							  <input id="pembayaran_awal<?php echo $urutan;?>" name="pembayaran" type="text" class="form-control" value="" placeholder="Pembayaran awal yang akan di transfer (Rp.)" required>
 							  </div>
 							</div>				  
 							</div>								
@@ -283,9 +283,10 @@
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<h4><i class="icon fa fa-check"></i> Error Login</h4>
 							<p>Harap login terlebih dahulu sebelum melakukan pendaftaran umroh secara online. </p>
-							<p>Silahkan klik tombol dibawah ini untuk Login.</p>
+							<p>Silahkan klik tombol dibawah ini untuk Login atau Registrasi jika belum memiliki akun.</p>
 							</div>
 							<a href="<?php echo $this->uri->baseUri;?>index.php/login/" type="button" class="btn btn-primary btn-lg btn-block">Login</a>
+							<a href="<?php echo $this->uri->baseUri;?>index.php/login/register" type="button" class="btn btn-primary btn-lg btn-block">Registrasi Akun</a>
 							<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						  </div>

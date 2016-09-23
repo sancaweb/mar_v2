@@ -95,6 +95,25 @@
 				  </script>
 				<?php
 			}
+			
+			if($page=='home'){
+				$jumlah_produk=$this->produk->hitung_produk();
+				for ($x = 1; $x <= $jumlah_produk; $x++) {
+						?>
+				
+				<script>
+				$('#pembayaran_awal<?php echo $x;?>').on('keyup', "input[id^='pembayaran_awal<?php echo $x;?>']", function() {
+				$("input[id^='pembayaran_awal<?php echo $x;?>']").priceFormat({
+					prefix: "",
+					thousandsSeparator: ",",
+					centsLimit: 0
+				});
+				});
+				</script>
+				<?php
+				}
+				
+			}
 		} //END ISSET $PAGE
 		?>
     </body>

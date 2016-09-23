@@ -16,6 +16,7 @@ class Adm_user extends Resources\Controller
 		$this->readmore = new Libraries\Readmore;
 		$this->pembayaran=new Models\Pembayaran;
 		$this->registrasi=new Models\Registrasi;
+		$this->rekanan = new Models\Rekanan;
     }
 	
 	public function index($page=1)
@@ -340,10 +341,19 @@ class Adm_user extends Resources\Controller
 		$this->pagination = new Resources\Pagination();
         $page = (int) $page;
         $limit = 5;
-		$total_user=$this->user->total_user();
 		
+		if($this->session->getValue('user_level')==3){
+			$user_id=$this->session->getValue('user_id');
+			
+			$total_user=$this->user->total_user_by_id($user_id);
+			$data['viewall_page']=$this->user->viewall_page_by_id($user_id,$page, $limit);
+		}else{
+			
+			$total_user=$this->user->total_user();
+			$data['viewall_page']=$this->user->viewall_page($page, $limit);
+		}
 				
-		$data['viewall_page']=$this->user->viewall_page($page, $limit);
+		
 		$data['total_user'] = $total_user;
 		$data['pageLinks'] = $this->pagination->setOption(
 		array(

@@ -17,6 +17,7 @@ class Adm_home extends Resources\Controller
 		$this->voucher = new Models\Voucher;
 		$this->image = new Libraries\Image;
 		$this->readmore = new Libraries\Readmore;
+		$this->rekanan = new Models\Rekanan;
 		
 		//$this->home = new Models\Home;
     }
@@ -55,11 +56,11 @@ class Adm_home extends Resources\Controller
 		
 		//registrasi terbaru
 		$data['registrasi_list']=$this->registrasi->viewall_registrasi($page = 1, $limit = 5);
-		$data['registrasi_terbaru']=$this->registrasi->hitung_registrasi_by_date();
+		$data['registrasi_terbaru']=$this->registrasi->hitung_register_terbaru();
 		
 		//pembayaran		
 		$data['pembayaran_list']=$this->pembayaran->viewall_pembayaran($page = 1, $limit = 5);
-		$data['pembayaran_terbaru']=$this->pembayaran->hitung_pembayaran_by_date();
+		$data['pembayaran_terbaru']=$this->pembayaran->hitung_pembayaran_terbaru();
 		
 
         $this->output('admin/index', $data);

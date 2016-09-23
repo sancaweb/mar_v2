@@ -16,6 +16,7 @@ class Home extends Resources\Controller
 		$this->readmore = new Libraries\Readmore;
 		$this->voucher = new Models\Voucher;
 		$this->pengaturan = new Models\Pengaturan;
+		$this->produk = new Models\Produk;
     }
 	
 	public function index()
@@ -85,25 +86,24 @@ class Home extends Resources\Controller
 	
 	public function tes_email(){
 		 $this->email = new Resources\Email;
-		
-		  $send = $this->email
-	    ->setOption(
-		array(
-		    'smtpHost' => 'mariumroh.com',
-		    'smtpUsername' => 'info@mariumroh.com',
-		    'smtpPassword' => 'ayokitaumroh16',
-			'smtpPort' => 587,
-		)
-	    )
-	    ->to('sanca.snake@gmail.com')
-	    ->subject('Tes Email')
-	    ->message('email messages')
-	    ->from('info@mariumroh.com', 'Mariumroh.com')
-	    ->mail();
+			
+			$to='sanca.snake@gmail.com';
+			$subject='Registrasi Umroh Online';
+			$message='Tes Email
+			';
+			
+			  $send = $this->email
+			->to($to)
+			->subject($subject)
+			->message($message)
+			->from('info@mariumroh.com', 'Mariumroh.com')
+			->mail();
 	    
         if( $send )
             echo 'success';
         else
             echo 'failed';
+		
+		
 	}
 }

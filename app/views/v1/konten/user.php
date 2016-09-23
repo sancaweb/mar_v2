@@ -8,7 +8,7 @@
   <li role="presentation" <?php if(isset($page)){if($page=='registrasi'){echo 'class="active"';}}?>>
 	<a href="<?php echo $this->uri->baseUri;?>index.php/registrasi">Data Registrasi</a>
   </li>
-  <li role="presentation" <?php if(isset($page)){if($page=='pembayaran'){echo 'class="active"';}}?>>
+  <li role="presentation" <?php if(isset($page)){if($page=='pembayaran' || $page=='konfirmasi_pembayaran'){echo 'class="active"';}}?>>
 	<a href="<?php echo $this->uri->baseUri;?>index.php/pembayaran">Data Pembayaran</a>
   </li>
   <li role="presentation" class="dropdown <?php if(isset($page)){if($page=='inbox' || $page=='sentitems' || $page=='view_pesan'){echo 'active';}}?>">
@@ -58,6 +58,9 @@
 		}
 		if($page=='view_pesan'){
 			$this->output(TEMPLATE.'konten/view_pesan');
+		}
+		if($page=='konfirmasi_pembayaran'){
+			$this->output(TEMPLATE.'konten/konfirmasi_pembayaran');
 		}
 	}?>
 		

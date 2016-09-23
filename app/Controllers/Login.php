@@ -348,8 +348,7 @@ class Login extends Resources\Controller
 		}else{
 			$data['no_voucher']=$no_voucher;
 			
-		}	
-		
+		}
 		
 		$data['title'] = 'Register Akun';
 		$data['page']='register';
@@ -469,6 +468,24 @@ class Login extends Resources\Controller
 			
 			
 			}
+			//kirim email
+			$this->email = new Resources\Email;
+				$to='daftar@mariumroh.com';
+				
+			  $send = $this->email
+					->setOption(
+					array(
+						'smtpHost' => 'mariumroh.com',
+						'smtpUsername' => 'info@mariumroh.com',
+						'smtpPassword' => 'ayokitaumroh16',
+						'smtpPort' => 587,
+					)
+					)
+					->to('sanca.snake@gmail.com')
+					->subject('')
+					->message('email messages')
+					->from('info@mariumroh.com', 'Mariumroh.com')
+					->mail();
 		}
 			
 		}else{

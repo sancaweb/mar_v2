@@ -17,6 +17,7 @@ class Adm_pengaturan extends Resources\Controller
 		$this->upload = new Resources\Upload;
 		$this->pembayaran=new Models\Pembayaran;
 		$this->registrasi=new Models\Registrasi;
+		$this->rekanan=new Models\Rekanan;
     }
 	
 	public function index()

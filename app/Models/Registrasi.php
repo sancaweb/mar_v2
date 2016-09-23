@@ -8,8 +8,7 @@ class Registrasi {
     //panggil library model terlebih dahulu
     public function __construct() {
         $this->db = new Resources\Database();		
-    }
-	
+    }	
 	
 	public function edit_registrasi($data_registrasi,$id){
 		return $this->db->update("registrasi",$data_registrasi,array('id'=>$id));
@@ -24,8 +23,8 @@ class Registrasi {
 		return $this->db->getVar("SELECT count(id) FROM registrasi");
 	}
 	
-	public function hitung_registrasi_by_date(){
-		return $this->db->getVar("SELECT count(id) FROM registrasi WHERE tgl_register > DATE(now()) - INTERVAL 1 WEEK");
+	public function viewall_registrasi_by_id_register($id_register){
+		return $this->db->row("SELECT * FROM registrasi WHERE id_register='".$id_register."'");
 	}
 	
 	
@@ -78,5 +77,8 @@ class Registrasi {
 	
 	public function hitung_register_terbaru(){
 		return $this->db->getVar("SELECT count(id) FROM registrasi WHERE tgl_register > DATE(now()) - INTERVAL 1 WEEK");
+	}
+	public function hitung_register_terbaru_id_rekanan($id_rekanan){
+		return $this->db->getVar("SELECT count(id) FROM registrasi WHERE id_rekanan='".$id_rekanan."' AND tgl_register > DATE(now()) - INTERVAL 1 WEEK");
 	}
 }

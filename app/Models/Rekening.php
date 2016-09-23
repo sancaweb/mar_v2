@@ -20,7 +20,6 @@ class Rekening {
 		return $this->db->update('rekening',$data_rekening,array('id'=>$id));
 	}
 	
-	
 	public function viewall_rekening(){
 		return $this->db->results("SELECT * FROM rekening ORDER BY id DESC");
 	}

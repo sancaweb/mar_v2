@@ -1,8 +1,21 @@
 <ul class="sidebar-menu">
 <?php
-	$registrasi_terbaru=$this->registrasi->hitung_register_terbaru();
-	$pembayaran_terbaru=$this->pembayaran->hitung_pembayaran_terbaru();
-	$user_terbaru=$this->user->hitung_user_terbaru();
+	
+	if($this->session->getValue('user_level')==3){
+		$user_id=$this->session->getValue('user_id');
+		$id_rekanan=$this->rekanan->view_id_rekanan($user_id)->id_rekanan;
+		
+		$pembayaran_terbaru=$this->pembayaran->hitung_pembayaran_terbaru_id_rekanan($id_rekanan);
+		$registrasi_terbaru=$this->registrasi->hitung_register_terbaru_id_rekanan($id_rekanan);
+		$user_terbaru=0;
+	}else{
+		$registrasi_terbaru=$this->registrasi->hitung_register_terbaru();
+		$pembayaran_terbaru=$this->pembayaran->hitung_pembayaran_terbaru();
+		$user_terbaru=$this->user->hitung_user_terbaru();
+	}
+	
+	
+	
 	
 	$total_all=$registrasi_terbaru + $pembayaran_terbaru + $user_terbaru;
 ?>

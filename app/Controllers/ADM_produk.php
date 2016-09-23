@@ -18,6 +18,7 @@ class Adm_produk extends Resources\Controller
 		$this->user= new Models\User;
 		$this->pembayaran=new Models\Pembayaran;
 		$this->registrasi=new Models\Registrasi;
+		$this->rekanan=new Models\Rekanan;
     }
 	
 	public function index($page=1)

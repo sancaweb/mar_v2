@@ -17,7 +17,7 @@ class Adm_pembayaran extends Resources\Controller
 		$this->user = new Models\User;
 		$this->image = new Libraries\Image;		
 		$this->readmore = new Libraries\Readmore;
-		$this->registrasi = new Models\registrasi;
+		$this->registrasi = new Models\Registrasi;
 		$this->randomstring = new Libraries\Randomstring;
 		$this->pengaturan = new Models\Pengaturan;
 		$this->pembayaran = new Models\Pembayaran;

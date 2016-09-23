@@ -20,6 +20,7 @@ class Adm_gallery extends Resources\Controller
 		$this->image = new Resources\Image; 
 		$this->pembayaran=new Models\Pembayaran;
 		$this->registrasi=new Models\Registrasi;
+		$this->rekanan=new Models\Rekanan;
     }
 	
 	public function index($page=1)

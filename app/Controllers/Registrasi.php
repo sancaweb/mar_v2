@@ -87,11 +87,10 @@ class Registrasi extends Resources\Controller
     }
 	
 	public function registrasi(){
-		if($_POST){
+		if($_POST){			
 		$jml_registrasi=$this->registrasi->hitung_registrasi()+1;
 		$id_register=date("Ymd").'-'.$jml_registrasi.'-'.$this->randomstring->randomstring(4);		
 		$id_register=$id_register;
-		$id_penerima=$this->request->post('id_penerima');
 		$nama_jamaah=ucwords($this->request->post('nama_jamaah',FILTER_SANITIZE_MAGIC_QUOTES));
 		$alamat=$this->request->post('alamat');
 		$tlp_jamaah=$this->request->post('tlp_jamaah',FILTER_SANITIZE_MAGIC_QUOTES);
@@ -102,8 +101,15 @@ class Registrasi extends Resources\Controller
 		$pembayaran=str_replace(",","",$this->request->post('pembayaran'));
 		$user_id=$this->session->getValue('user_id');
 		$tgl_register=date("Y-m-d");
-		$id_rekanan=$this->voucher->view_id_rekanan_by_id($id_penerima)->id_rekanan;
 		
+		$id_penerima=$this->request->post('id_penerima');
+				
+		$id_rekanan=$this->voucher->view_id_rekanan_by_id($id_penerima);
+		if($id_rekanan){
+			$id_rekanan=$this->voucher->view_id_rekanan_by_id($id_penerima)->id_rekanan;
+		}else{
+			$id_rekanan='';
+		}
 		$data_registrasi=array(
 			'id_register'=>$id_register,
 			'id_penerima'=>$id_penerima,
@@ -119,7 +125,6 @@ class Registrasi extends Resources\Controller
 			'tgl_register'=>$tgl_register,
 			'id_rekanan'=>$id_rekanan,
 		);
-		
 			$this->registrasi->input_registrasi($data_registrasi);
 		
 		if($id_penerima==''){
@@ -131,7 +136,6 @@ class Registrasi extends Resources\Controller
 			
 			$this->voucher->edit_penerima_voucher($data_penerima,$id_penerima);
 		}
-		
 		
 		$data['title'] = 'Registrasi';
 		$data['subtitle']= 'Halaman utama';
@@ -151,14 +155,65 @@ class Registrasi extends Resources\Controller
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<h4><i class="icon fa fa-check"></i> Registrasi Berhasil</h4>
 			Selamat anda berhasil registrasi Umroh.
-			<p>Untuk mempermudah proses regsitrasi ulang, harap catat ID Register anda: '.$id_register.'</p>
-			<p>Silahkan lakukan pembayaran sesuai nominal sebesar Rp. '.number_format($pembayaran,0,'','.').' pada rekening Bank kami dibawah ini.</p>
+			<p>Untuk mempermudah proses regsitrasi ulang, harap catat ID Register anda: <strong><h3>'.$id_register.'</h3></strong></p>
+			<p>Silahkan lakukan pembayaran sesuai nominal sebesar <strong><h3> Rp. '.number_format($pembayaran,0,'','.').'</h3></strong> pada rekening Bank kami dibawah ini.</p>
 			<p>Silahkan lakukan konfirmasikan pembayaran anda.</p>			
 			</div>
 			<a href="'.$this->uri->baseUri.'index.php/registrasi/" type="button" class="btn btn-primary btn-lg btn-block">Konfirmasi Pembayaran</a>
 			';
 		
-		$this->output(TEMPLATE.'index', $data);
+			$this->output(TEMPLATE.'index', $data);
+			
+			// email ..
+			$this->email = new Resources\Email;
+						
+			$nama_produk=$this->request->post('nama_produk');
+			
+			$to='sanca.snake@gmail.com';
+			$subject='Registrasi Umroh Online';
+			$message='
+			<table>
+			  <tr>
+				<td>ID Register : </td>
+				<td>'.$id_register.'</td>
+			  </tr>
+			  <tr>
+				<td>Nama Jamaah :</td>
+				<td>'.$nama_jamaah.'</td>
+			  </tr>
+			  <tr>
+				<td>No Telpon :</td>
+				<td>'.$tlp_jamaah.'</td>
+			  </tr>
+			  <tr>
+				<td>Nama Produk :</td>
+				<td>'.$nama_produk.'</td>
+			  </tr>
+			  
+			  <tr>
+				<td>Pembayaran Awal :</td>
+				<td>'.$pembayaran.'</td>
+			  </tr>
+			  <tr>
+				<td>Potongan :</td>
+				<td>'.$potongan.'</td>
+			  </tr>
+			</table>
+			
+			';
+			
+			  $send = $this->email
+			  ->setOption(
+			array(
+				'messageType' => 'html'
+			)
+			)
+			->to($to)
+			->subject($subject)
+			->message($message)
+			->from('daftar@mariumroh.com', 'Mariumroh.com')
+			->mail();
+		
 		}else{
 			$data['title'] = 'Error ...';
 			$data['subtitle']= 'error';

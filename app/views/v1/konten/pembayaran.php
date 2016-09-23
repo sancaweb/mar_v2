@@ -46,20 +46,6 @@ foreach($viewall_pembayaran_user_id as $data){
 		</a>
 		</td>
 	</tr>
-	<tr>
-	<td colspan="8">
-	<ul class="pagination pagination-sm no-margin pull-right">
-		<?php if ($pageLinks): ?>
-				
-				<?php foreach ($pageLinks as $paging): ?>
-					<?php echo '<li>'.$paging; ?></li>
-					
-				<?php endforeach; ?>
-			
-					<?php endif; ?>
-	  </ul>
-	</td>
-	</tr>
 	<!-- Modal View-->
 <div class="modal fade bs-example-modal-lg" id="myModalview<?php echo $data->id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
@@ -224,6 +210,21 @@ foreach($viewall_pembayaran_user_id as $data){
 	<?php
 }
 	?>
+	
+	<tr>
+	<td colspan="8">
+	<ul class="pagination pagination-sm no-margin pull-right">
+		<?php if ($pageLinks): ?>
+				
+				<?php foreach ($pageLinks as $paging): ?>
+					<?php echo '<li>'.$paging; ?></li>
+					
+				<?php endforeach; ?>
+			
+					<?php endif; ?>
+	  </ul>
+	</td>
+	</tr>
 </table>
 
 </div> <!-- /.col-xs-12 -->

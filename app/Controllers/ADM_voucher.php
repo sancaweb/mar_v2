@@ -662,7 +662,7 @@ class Adm_voucher extends Resources\Controller
 	}
 	
 	public function activate($page=1){
-		if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2){
+		if($this->session->getValue('user_level')==1 || $this->session->getValue('user_level')==2 || $this->session->getValue('user_level')==3){
 		if($_POST){
 		
 		$id=$this->request->post('id');

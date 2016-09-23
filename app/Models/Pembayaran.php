@@ -23,9 +23,6 @@ class Pembayaran {
 	public function hitung_pembayaran(){
 		return $this->db->getVar("SELECT count(id) FROM pembayaran ");
 	}
-	public function hitung_pembayaran_by_date(){
-		return $this->db->getVar("SELECT count(id) FROM pembayaran WHERE tgl_konfirm > DATE(now()) - INTERVAL 1 WEEK");
-	}
 	
 	public function input_pembayaran($data_pembayaran){
         return $this->db->insert('pembayaran',$data_pembayaran);
@@ -52,5 +49,10 @@ class Pembayaran {
 	public function hitung_pembayaran_terbaru(){
 		return $this->db->getVar("SELECT count(id) FROM pembayaran WHERE tgl_konfirm > DATE(now()) - INTERVAL 1 WEEK");
 	}
+	
+	public function hitung_pembayaran_terbaru_id_rekanan($id_rekanan){
+		return $this->db->getVar("SELECT count(id) FROM pembayaran WHERE id_rekanan='".$id_rekanan."' AND tgl_konfirm > DATE(now()) - INTERVAL 1 WEEK");
+	}
+	
 	
 }

@@ -182,8 +182,6 @@ class Klaim_voucher extends Resources\Controller
 							
 							}
 							
-							
-							
 						}else{
 							//user tidak sesuai
 							$this->session->destroy();
